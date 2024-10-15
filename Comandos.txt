@@ -1,0 +1,37 @@
+1. 	Crear Aplicación IONIC
+	ionic start nombre-app blank --type=angular
+2. Para ejecutar app
+	ionic serve
+3. Instalar espacio en la base de datos
+	npm install cordova-sqlite-storage
+4. Instalar SQLite
+	npm install @awesome-cordova-plugins/sqlite
+5. Hacemos todo el desarrollo. Una vez terminado nativizamos
+	ionic cap sync
+	npm install @capacitor/android
+	npx cap add android
+6.	Creación páginas y servicios
+	ionic g page pages/login
+	ionic g page pages/signup
+	ionic g page pages/principal
+	ionic g page pages/profile
+	ionic g service services/api
+	ionic g service services/db
+7. Ejecutamos nuestro proyecto android
+	ionic cap open android
+	ionic cap run android --livereload --external
+
+En caso de clonar el proyecto desde el repositorio
+
+1. Copiar repositorio
+	git clone https://github.com/DarthBane1138/prueba2.git
+2. Instalar dependencias
+	npm install
+3. Instalar Capacitor y sincronizar plataformas
+	ionic cap sync
+	npm install @capacitor/android
+	(En mi caso no fué necesario ejecutar npx cap add android ya que al clonar se instala sólo)
+
+	
+
+
