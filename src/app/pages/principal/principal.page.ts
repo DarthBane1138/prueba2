@@ -18,4 +18,7 @@ export class PrincipalPage implements OnInit {
     this.router.navigate(['login'])
   }
 
+  irPerfil() {
+    this.router.navigate(['profile'])
+  }
 }
