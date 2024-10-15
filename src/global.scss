@@ -35,3 +35,82 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+.fondo{
+    --background: #0B253E;
+}
+
+.label{
+    --highlight-color: #15af01;
+}
+
+.input{
+    --background:#ffffff;
+    --color: #0B253E;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    width: 85%;
+    border: 1px solid transparent;
+}
+
+//login y registro
+.btn{
+    --background: #F8B31C;
+    --color: #0B253E;
+    --border-radius: 5px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.registerQ{
+    color: grey;
+}
+
+.signup-button {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.toolbar{
+    --background: #0B253E;
+    --color: white;
+    font-weight: 400;
+  }
+
+.bkgrnd{
+    --background: #242424;
+}
+
+.description {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-tabs {
+    z-index: 1000;
+}
+
+.bar{
+    --color: #002138;
+    --background: #ffffff;
+    --margin-top: 100px;
+}
+
+ion-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .content-container {
+    flex: 1; /* Ocupa todo el espacio disponible */
+  }
+

@@ -1,13 +1,62 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>principal</ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title> Sede (Poner sede) </ion-title>
+    <ion-buttons slot="end">
+      <!-- Botón para cerrar sesión -->
+      <ion-button (click)="cerrarSesion()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">principal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding bkgrnd">
+  <!-- Logo DuocUC -->
+   <div class="logo">
+    <img class="logo-title" src="../../../assets/img/Logo_DuocUC.svg.png" alt="Logo" style="height: 50px;">
+   </div>
+   <!-- Bienvenida a usuario -->
+    <h1 class="profile-title">¡¡ Bienvenido (Usuario) !!</h1>
+    <!-- Card para mostrar sede de usuario -->
+     <ion-card>
+      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png">
+      <ion-card-header>
+        <ion-card-subtitle> Estas Matriculado en</ion-card-subtitle>
+        <ion-card-title> (Sede) </ion-card-title>
+      </ion-card-header>
+      <ion-card-content> (Dirección) </ion-card-content>
+     </ion-card>
+     <p class="description">Con esta nueva aplicación podrás registrar tu asistencia, buscamos mejorar tu experiencia en
+      DuocUC y hacer nuestras clases cada vez más eficientes</p>
 </ion-content>
+
+<!-- Tab bar/barra de navegacion -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <!-- Aquí se deben agregar los ion-tab-button según sea necesario -->
+        <ion-tab-button tab="tab1">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="tab2">
+          <ion-icon name="settings"></ion-icon>
+          <ion-label>Settings</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+
+<!--
+<ion-tab-button>
+  <ion-icon name="qr-code"></ion-icon>
+</ion-tab-button>
+<ion-tab-button>
+  <ion-icon name="home"></ion-icon>
+</ion-tab-button>
+<ion-tab-button>
+  <ion-icon name="person"></ion-icon>
+</ion-tab-button>
+-->
