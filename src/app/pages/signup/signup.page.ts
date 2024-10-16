@@ -35,12 +35,6 @@ export class SignupPage implements OnInit {
       this.mdl_carrera,
       this.mdl_sede
     );
-    console.log("Correo: " + this.mdl_correo)
-    console.log("Contrasena: " + this.mdl_contrasena)
-    console.log("Nombre: " + this.mdl_nombre)
-    console.log("Apellido: " + this.mdl_apellido)
-    console.log("Carrera: " + this.mdl_carrera)
-    console.log("Sede: " + this.mdl_sede)
     this.router.navigate(['login']);
   }
 
