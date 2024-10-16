@@ -1,13 +1,67 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>signup</ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>Registro de Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">signup</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding bkgrnd">
+  <div class="logo">
+    <img class="logo-title" src="../../../assets/img/Logo_DuocUC.svg.png" alt="Logo" style="height: 50px;">
+  </div>
+  <!-- Input Correo -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input [(ngModel)]="mdl_correo" label="Correo:" labelPlacement="floating" placeholder="Ingresa tu correo" class="label"></ion-input>
+  </ion-item>
+  <!-- Input Contraseña -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input  [(ngModel)]="mdl_contrasena" label="Contraseña:" labelPlacement="floating" placeholder="Ingresa la contraseña" class="label"></ion-input>
+  </ion-item>
+  <!-- Input Confirmar Contraseña -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input [(ngModel)]="mdl_contrasena_conf" label="Confirmar Contraseña:" labelPlacement="floating" placeholder="Confirma tu contraseña" class="label"></ion-input>
+  </ion-item>
+  <!-- Input Nombre -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input [(ngModel)]="mdl_nombre" label="Nombre:" labelPlacement="floating" placeholder="Ingresa tu Nombre" class="label"></ion-input>
+  </ion-item>
+  <!-- Input Apellido -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input [(ngModel)]="mdl_apellido" label="Apellido:" labelPlacement="floating" placeholder="Ingresa tu Apellido" class="label"></ion-input>
+  </ion-item>
+  <!-- Input Confirmar Contraseña -->
+  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-input [(ngModel)]="mdl_carrera" label="Carrera:" labelPlacement="floating" placeholder="Ingresa tu Carrera" class="label"></ion-input>
+  </ion-item>
+  
+  
+  <!-- Input Sede -->
+  <ion-item class="ion-margin-top inputR">
+    <ion-label>Sede:</ion-label>
+      <ion-select [(ngModel)]="mdl_sede" placeholder="Selecciona tu sede">
+      <ion-select-option value="Alameda">Sede Alameda</ion-select-option>
+      <ion-select-option value="Padre Alonso Ovalle">Sede Padre Alonso Ovalle</ion-select-option>
+      <ion-select-option value="Antonio Varas">Sede Antonio Varas</ion-select-option>
+      <ion-select-option value="Educacion Continua">Sede Educacion Continua</ion-select-option>
+      <ion-select-option value="Maipu">Sede Maipu</ion-select-option>
+      <ion-select-option value="Melipilla">Sede Melipilla</ion-select-option>
+      <ion-select-option value="Plaza Norte">Sede Plaza Norte</ion-select-option>
+      <ion-select-option value="Plaza Oeste">Sede Plaza Oeste</ion-select-option>
+      <ion-select-option value="Plaza Vespucio">Sede Plaza Vespucio</ion-select-option>
+      <ion-select-option value="Puente Alto">Sede Puente Alto</ion-select-option>
+      <ion-select-option value="San Bernardo">Sede San Bernardo</ion-select-option>
+      <ion-select-option value="San Carlos de apoquindo">Sede San Carlos de apoquindo</ion-select-option>
+      <ion-select-option value="San Joaquin">Sede San Joaquin</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <!-- Input Botón para confirmar Registro -->
+  <ion-button (click)="registrar()" class="btn ion-margin-top" fill="solid" expand="block">
+    <!-- Agregar Spinner -->
+    <span>Registrarse</span>
+  </ion-button>
+  <!-- Botón para volvver al inicio -->
+  <p style="font-size: small" (click)="inicio()" class="ion-margin-top text-container ion-text-center titulo">
+    Volver a Inicio
+  </p>
 </ion-content>
+

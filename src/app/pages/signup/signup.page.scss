@@ -1,0 +1,20 @@
+.inputR {
+    color: white;
+    text-shadow: 1px 1px 0 black, 
+                 -1px -1px 0 black, 
+                 1px -1px 0 black, 
+                 -1px 1px 0 black;
+}
+
+.label{
+    --highlight-color: #105f09;
+}
+
+.titulo{
+    display: flex;
+    font-weight: bold;
+    color: #ffffff;
+    justify-content: center; 
+    align-items: center; 
+    height: 20%;
+}

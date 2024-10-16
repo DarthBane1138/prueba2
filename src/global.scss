@@ -118,8 +118,24 @@
     border-radius: 10px;
   }
 
-  .white-icon {
+.white-icon {
     color: white;
   }
+
+.logo {
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.inputR{
+    --background: transparent;
+    --color: #0B253E;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    width: 85%;
+    border-bottom: 1px solid #012b52;
+}
 
 
