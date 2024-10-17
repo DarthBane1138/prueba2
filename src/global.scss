@@ -138,4 +138,26 @@
     border-bottom: 1px solid #012b52;
 }
 
+.fondo-bienvenida {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Asegura que ocupe toda la pantalla */
+    --background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(27, 23, 73) 74%, rgb(40, 38, 155) 100%);
+  }
+
+.logo-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+  }
+  
+  .logo-bienvenida {
+    max-width: 70%; /* Ajusta el tamaño del logo */
+    max-height: 50%; /* Evita que se distorsione si la pantalla es muy pequeña */
+    object-fit: contain; /* Mantiene la proporción del logo */
+  }
+
 

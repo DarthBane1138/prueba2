@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-back-button slot="start" defaultHref="/principal"></ion-back-button>
+    <ion-title>Cambiar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Input Contraseña Actual -->
+    <ion-item  lines="inset" class="ion-margin-top inputR custom-line">
+      <ion-input [(ngModel)]="mdl_actual" label="Contraseña Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label"></ion-input>
+    </ion-item>
+  <!-- Input Nueva Contraseña -->
+    <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+      <ion-input [(ngModel)]="mdl_nueva" label="Contraseña Nueva" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label"></ion-input>
+    </ion-item>
+  <!-- Input Confirmación Contraseña -->
+    <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+      <ion-input [(ngModel)]="mdl_confirmacion" label="Confirmar Contraseña" labelPlacement="floating" placeHolder="Confirme Contraseña" class="label"></ion-input>
+    </ion-item>
+  <!-- Botón confirmación -->
+  <ion-button (click)="cambiarContrasena()" class="btn ion-margin-top" fill="solid" expand="block">
+    <span> Confirmar Cambio Contraseña </span>
+  </ion-button>
+
+  <ion-item *ngIf="v_visible" color="warning" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
+</ion-content>

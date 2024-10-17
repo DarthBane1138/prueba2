@@ -2,10 +2,15 @@
   <ion-toolbar class="toolbar">
     <ion-title> Sede (Poner sede) </ion-title>
     <ion-buttons slot="end">
+      <!-- Botón para Modificar Contraseña -->
+      <ion-button (click)="navegarCambiarContrasena()">
+        <ion-icon name="create-outline" slot="icon-only" class="white-icon"></ion-icon>
+      </ion-button>
       <!-- Botón para cerrar sesión -->
       <ion-button (click)="cerrarSesion()">
         <ion-icon slot="icon-only" name="log-out-outline" class="white-icon"></ion-icon>
       </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,6 +22,8 @@
    </div>
    <!-- Bienvenida a usuario -->
     <h1 class="profile-title">¡¡ Bienvenido {{ nombre }} !!</h1>
+    <h2 class="profile-title"> {{ correo }} </h2>
+    <h2 class="profile-title"> {{ contrasena2 }} </h2>
     <!-- Card para mostrar sede de usuario -->
      <ion-card class="card-principal">
       <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png">

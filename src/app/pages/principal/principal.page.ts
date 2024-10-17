@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class PrincipalPage implements OnInit {
   nombre: string = '';
   contrasena: string = '';
   apellido: string = '';
+  contrasena2: string = '';
 
   constructor(private router: Router, private db: DbService) { }
 
@@ -21,21 +22,28 @@ export class PrincipalPage implements OnInit {
     if (extras?.state) {
       this.correo = extras?.state['correo']
       this.contrasena = extras?.state['contrasena']
-
-      console.log("Correo recibido: " + this.correo)
-      console.log("Contrasena recibido: " + this.contrasena)
     } else {
-      console.log("No se recibieron parámetros")
+      console.log("PLF: No se recibieron parámetros")
     }
 
-    this.infoUsuario();
+    if(this.contrasena == '') {
+      this.db.obtenerSesion().then(data => {
+        this.correo = data.correo;
+        this.contrasena = data.contrasena;
+        this.infoUsuario();
+      })
+    } else {
+      this.infoUsuario();
+    }
   }
 
   infoUsuario() {
     this.db.infoUsuario(this.correo, this.contrasena)
       .then(data => {
+        this.correo = data.correo;
         this.nombre = data.nombre;
         this.apellido = data.apellido;
+        this.contrasena2 = data.contrasena;
       })
   }
 
@@ -45,5 +53,15 @@ export class PrincipalPage implements OnInit {
 
   irPerfil() {
     this.router.navigate(['profile'])
+  }
+
+  navegarCambiarContrasena() {
+    let extras: NavigationExtras = {
+      state: {
+        correo: this.correo,
+        contrasena: this.contrasena
+      }, replaceUrl: true
+    }
+    this.router.navigate(['cambiar-contrasena'], extras)
   }
 }

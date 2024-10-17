@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -27,6 +27,9 @@ export class SignupPage implements OnInit {
   }
 
   registrar() {
+    let extras: NavigationExtras = {
+      replaceUrl: true
+    }
     this.db.almacenarUsuario(
       this.mdl_correo,
       this.mdl_contrasena,

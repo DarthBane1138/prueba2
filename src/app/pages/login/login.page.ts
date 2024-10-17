@@ -26,12 +26,12 @@ export class LoginPage implements OnInit {
       }, replaceUrl: true
     }
 
-    console.log("Correo Ingresado: " + this.mdl_correo)
-    console.log("Contraseña Ingresada: " + this.mdl_contrasena)
+    console.log("PLF: Correo Ingresado: " + this.mdl_correo)
+    console.log("PLF: Contraseña Ingresada: " + this.mdl_contrasena)
 
     this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
       .then(data => {
-        if (data == 1) {
+        if (data == 1) {this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
           this.router.navigate(['principal'], extras);
         } else {
           console.log('PLF: Credenciales inválidas')
