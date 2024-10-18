@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,8 +14,17 @@ export class ProfilePage implements OnInit {
     console.log("Perfil")
   }
 
-  irHome(){
-    this.router.navigate(['principal'])
+  irSedes() {
+    let extras: NavigationExtras ={
+      replaceUrl: true
+    }
+    this.router.navigate(['sedes'], extras)
   }
 
+  irHome(){
+    let extras: NavigationExtras = {
+      replaceUrl: true
+    }
+    this.router.navigate(['principal'])
+  }
 }

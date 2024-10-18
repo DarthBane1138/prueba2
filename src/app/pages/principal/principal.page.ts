@@ -57,7 +57,10 @@ export class PrincipalPage implements OnInit {
   }
 
   irPerfil() {
-    this.router.navigate(['profile'])
+    let extras: NavigationExtras = {
+      replaceUrl: true
+    }
+    this.router.navigate(['profile'], extras)
   }
 
   navegarCambiarContrasena() {
@@ -68,5 +71,12 @@ export class PrincipalPage implements OnInit {
       }, replaceUrl: true
     }
     this.router.navigate(['cambiar-contrasena'], extras)
+  }
+
+  irSedes() {
+    let extras: NavigationExtras = {
+      replaceUrl: true
+    }
+    this.router.navigate(['sedes'])
   }
 }
