@@ -41,13 +41,14 @@ export class DbService {
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
   }
 
-  // Servicio Almacenar Usuario
+  // Almacenar Usuario
   almacenarUsuario(correo: string, contrasena: string, nombre: string, apellido: string, carrera: string, sede: string) {
     this.sqlite.create({
       name: 'data.db',
       location: 'default'
     })
     .then((db: SQLiteObject) => {
+      console.log("Valores almacenados: ")
       db.executeSql('insert into usuario values(?, ?, ?, ?, ?, ?)', [correo, contrasena, nombre, apellido, carrera, sede])
         .then(() => console.log('PLF: USUARIO ALMACENADO OK'))
         .catch(e => console.log('PLF: ERROR AL ALMACENAR USUARIO: ' + JSON.stringify(e)));
@@ -55,13 +56,19 @@ export class DbService {
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
   }
 
+  // Almacenar Sesión
   almacenarSesion(correo: string, contrasena: string) {
     this.sqlite.create({
       name: 'data.db',
       location: 'default'
     })
     .then((db: SQLiteObject) => {
-      db.executeSql('insert into sesion values (?, ?)', [correo, contrasena])
+      db.executeSql('delete from sesion', [])
+      
+        .then(() => {
+          console.log("PLF: Sesión anterior Sobreescrita")
+          return db.executeSql('insert into sesion values (?, ?)', [correo, contrasena])
+        })
         .then(() => console.log('PLF: SESION ALMACENADO OK'))
         .catch(e => console.log('PLF: ERROR AL ALMACENAR SESION: ' + JSON.stringify(e)));
     })
@@ -85,6 +92,7 @@ export class DbService {
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS' + JSON.stringify(e)));
   }
 
+  // Validar Sesión
   validarSesion() {
     return this.sqlite.create({
       name: 'data.db',
@@ -124,19 +132,23 @@ export class DbService {
       location: 'default'
     })
     .then((db: SQLiteObject) => {
-      return db.executeSql('select correo, nombre, apellido, contrasena from usuario where correo = ? and contrasena = ?', [correo, contrasena])
+      return db.executeSql('select correo, contrasena, nombre, apellido, carrera, sede from usuario where correo = ? and contrasena = ?', [correo, contrasena])
         .then((data) => {
           let objeto: any = {};
           objeto.correo = data.rows.item(0).correo;
+          objeto.contrasena = data.rows.item(0).contrasena;
           objeto.nombre = data.rows.item(0).nombre;
           objeto.apellido = data.rows.item(0).apellido;
-          objeto.contrasena = data.rows.item(0).contrasena;
+          objeto.carrera = data.rows.item(0).carrera;
+          objeto.sede = data.rows.item(0).sede;
 
           console.log("PLF: DATOS RESCATADOS EXITOSAMENTE")
-          console.log(objeto.correo)
-          console.log(objeto.nombre)
-          console.log(objeto.apellido)
-          
+          console.log("PLF: " + objeto.correo)
+          console.log("PLF: " + objeto.contrasena)
+          console.log("PLF: " + objeto.nombre)
+          console.log("PLF: " + objeto.apellido)
+          console.log("PLF: " + objeto.carrera)
+          console.log("PLF: " + objeto.sede)
 
           return objeto
         })
@@ -156,5 +168,18 @@ export class DbService {
         .catch(e => console.log('PLF: ERROR AL MODIFICAR CONTRASENA: ' + JSON.stringify(e)));
     })
     .catch(e => console.log('PLF: ERROR AL INGRESAR A BASE DE DATOS'));
+  }
+
+  eliminarSesion() {
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      db.executeSql('delete from sesion', [])
+        .then(() => console.log('PLF: SESION ALMACENADO OK'))
+        .catch(e => console.log('PLF: ERROR AL ALMACENAR SESION: ' + JSON.stringify(e)));
+    })
+    .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
   }
 }

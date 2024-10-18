@@ -38,7 +38,7 @@ export class SignupPage implements OnInit {
       this.mdl_carrera,
       this.mdl_sede
     );
-    this.router.navigate(['login']);
+    this.router.navigate(['login'], extras);
   }
 
 }
