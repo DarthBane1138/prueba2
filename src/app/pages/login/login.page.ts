@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   constructor(private router: Router, private db: DbService) { }
 
   ngOnInit() {
-    console.log("Login")
+    console.log("PLF: Login")
   }
 
   login() {

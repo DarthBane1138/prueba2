@@ -33,8 +33,6 @@ export class SedesPage implements OnInit {
       sede.imagen = json[0][x].IMAGEN;
 
       this.listaSedes.push(sede);
-      console.log("PLF: Datos obtenidos")
-      console.log("PLF: Nombre Sede: " + sede.nombre)
     }
   }
 

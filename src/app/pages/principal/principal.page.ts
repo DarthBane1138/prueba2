@@ -29,8 +29,6 @@ export class PrincipalPage implements OnInit {
       this.db.obtenerSesion().then(data => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        console.log("PLF: Correo obtenido ---> " + this.correo)
-        console.log("PLF: Contraseña obtenida ---> " + this.contrasena)
         this.infoUsuario();
       })
     }

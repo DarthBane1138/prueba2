@@ -142,14 +142,6 @@ export class DbService {
           objeto.carrera = data.rows.item(0).carrera;
           objeto.sede = data.rows.item(0).sede;
 
-          console.log("PLF: DATOS RESCATADOS EXITOSAMENTE")
-          console.log("PLF: " + objeto.correo)
-          console.log("PLF: " + objeto.contrasena)
-          console.log("PLF: " + objeto.nombre)
-          console.log("PLF: " + objeto.apellido)
-          console.log("PLF: " + objeto.carrera)
-          console.log("PLF: " + objeto.sede)
-
           return objeto
         })
         .catch(e => console.log('PLF: ERROR AL OBTENER INFO DE PERSONA: ' + JSON.stringify(e)));
