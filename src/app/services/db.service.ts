@@ -57,7 +57,7 @@ export class DbService {
   }
 
   // Almacenar Sesión
-  almacenarSesion(correo: string, contrasena: string) {
+  /*async almacenarSesion(correo: string, contrasena: string) {
     this.sqlite.create({
       name: 'data.db',
       location: 'default'
@@ -73,6 +73,23 @@ export class DbService {
         .catch(e => console.log('PLF: ERROR AL ALMACENAR SESION: ' + JSON.stringify(e)));
     })
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
+  }*/
+
+  async almacenarSesion(correo: string, contrasena: string) {
+    try {
+      const db = await this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+      });
+  
+      await db.executeSql('delete from sesion', []);
+      console.log("PLF: Sesión anterior Sobreescrita");
+  
+      await db.executeSql('insert into sesion values (?, ?)', [correo, contrasena]);
+      console.log('PLF: SESION ALMACENADO OK');
+    } catch (e) {
+      console.log('PLF: ERROR AL ALMACENAR SESION: ' + JSON.stringify(e));
+    }
   }
 
   // Servicio Login

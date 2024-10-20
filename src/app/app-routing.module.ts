@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'sedes',
     loadChildren: () => import('./pages/sedes/sedes.module').then( m => m.SedesPageModule)
   },
+  {
+    path: 'actualizar-sede',
+    loadChildren: () => import('./pages/actualizar-sede/actualizar-sede.module').then( m => m.ActualizarSedePageModule)
+  },
 
 ];
 

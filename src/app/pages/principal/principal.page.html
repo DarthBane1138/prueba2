@@ -24,15 +24,24 @@
     <h1 class="profile-title">¡¡ Bienvenido {{ nombre }} !!</h1>
     <!-- Card para mostrar sede de usuario -->
      <ion-card class="card-principal">
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png">
+      <img alt="Silhouette of mountains" src="{{ sedeApiImagen }}">
       <ion-card-header>
         <ion-card-subtitle> Estas Matriculado en</ion-card-subtitle>
-        <ion-card-title> (Sede) </ion-card-title>
-      </ion-card-header>
-      <ion-card-content> (Dirección) </ion-card-content>
-     </ion-card>
-     <p class="description">Con esta nueva aplicación podrás registrar tu asistencia, buscamos mejorar tu experiencia en
+        <ion-card-title> {{ sedeApiNombre }} </ion-card-title>
+      <ion-card-subtitle class=""> {{ sedeApiDireccion }} </ion-card-subtitle>
+      <ion-card-subtitle class=""> {{ sedeApiTelefono }} </ion-card-subtitle>
+    </ion-card-header>
+      <ion-card-subtitle class="ion-text-center"> {{ sedeApiHorarioAtencion }} </ion-card-subtitle>
+    </ion-card>
+    <p class="description">Con esta nueva aplicación podrás registrar tu asistencia, buscamos mejorar tu experiencia en
       DuocUC y hacer nuestras clases cada vez más eficientes</p>
+      <div class="text-container ion-text-center">
+        <small class="registerQ">¿Tu sede está incorrecta?</small>
+      </div>
+      <div class="text-container ion-text-center">
+        <small class=signup-button (click)="actualizarSede()">Actualízala acá</small>
+      </div>
+
 </ion-content>
 
 <!-- Tab bar/barra de navegacion -->

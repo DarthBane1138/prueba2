@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-back-button slot="start" defaultHref="/principal"></ion-back-button>
+    <ion-title> Actualiza tu Sede </ion-title>
+    <ion-buttons slot="end">
+      <!-- Botón para Modificar Contraseña -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Input Contraseña Actual -->
+    <ion-item  lines="inset" class="ion-margin-top inputR custom-line">
+      <ion-input [(ngModel)]="mdl_contrasena" label="Contraseña Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label"></ion-input>
+    </ion-item>
+    <!-- Elección Sede para actualizar -->
+    <ion-item class="ion-margin-top inputR">
+      <ion-label>Sede:</ion-label>
+        <ion-select [(ngModel)]="mdl_sede" placeholder="Selecciona tu sede">
+        <ion-select-option value="Sede Alameda">Sede Alameda</ion-select-option>
+        <ion-select-option value="Sede Antonio Varas">Sede Antonio Varas</ion-select-option>
+        <ion-select-option value="Sede Maipú">Sede Maipu</ion-select-option>
+        <ion-select-option value="Sede Melipilla">Sede Melipilla</ion-select-option>
+        <ion-select-option value="Sede Padre Alonso de Ovalle">Sede Padre Alonso Ovalle</ion-select-option>
+        <ion-select-option value="Sede Plaza Norte">Sede Plaza Norte</ion-select-option>
+        <ion-select-option value="Sede Plaza Oeste">Sede Plaza Oeste</ion-select-option>
+        <ion-select-option value="Sede Puente Alto">Sede Puente Alto</ion-select-option>
+        <ion-select-option value="Sede San Bernardo">Sede San Bernardo</ion-select-option>
+        <ion-select-option value="Sede San Carlos de Apoquindo">Sede San Carlos de apoquindo</ion-select-option>
+        <ion-select-option value="Sede San Joaquín">Sede San Joaquin</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <!-- Botón para confirmar actualizar Sede -->
+    <ion-button (click)="cambiarSede()" class="btn ion-margin-top" fill="solid" expand="block">
+      <!-- Agregar Spinner -->
+      <span>Confirmar cambio Sede</span>
+    </ion-button>
+  
+  <ion-item *ngIf="v_visible" color="warning" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
+</ion-content>

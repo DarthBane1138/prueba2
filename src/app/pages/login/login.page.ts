@@ -56,7 +56,8 @@ export class LoginPage implements OnInit {
 
       if(json.status == "success") {
         console.log("PLF: if")
-        this.correo = json.usuario.correo;
+        await this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
+        /*this.correo = json.usuario.correo;
         this.nombre = json.usuario.nombre;
         this.apellido = json.usuario.apellido;
         this.carrera = json.usuario.carrera;
@@ -64,11 +65,11 @@ export class LoginPage implements OnInit {
         console.log("PLF: Correo: " + json.usuario.correo)
         console.log("PLF: Nombre: " + json.usuario.nombre)
         console.log("PLF: Apellido: " + json.usuario.apellido)
-        console.log("PLF: Carrera: " + json.usuario.carrera)
-        this.router.navigate(['principal'], { replaceUrl: true })
+        console.log("PLF: Carrera: " + json.usuario.carrera)*/
+        this.router.navigate(['principal'], { replaceUrl: true });
       } else {
         console.log("PLF: else")
-        console.log("PLF: Error al Iniciar Sesión: " + json.message )
+        console.log("PLF API: Error al Iniciar Sesión: " + json.message )
       }
     }
     catch (error) {
