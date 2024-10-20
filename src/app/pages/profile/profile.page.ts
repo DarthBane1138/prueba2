@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -41,16 +41,10 @@ export class ProfilePage implements OnInit {
   }
 
   irSedes() {
-    let extras: NavigationExtras ={
-      replaceUrl: true
-    }
-    this.router.navigate(['sedes'], extras)
+    this.router.navigate(['sedes'], { replaceUrl: true })
   }
 
   irHome(){
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['principal'], extras)
+    this.router.navigate(['principal'], { replaceUrl: true })
   }
 }

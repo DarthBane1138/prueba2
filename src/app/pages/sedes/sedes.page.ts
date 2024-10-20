@@ -37,17 +37,11 @@ export class SedesPage implements OnInit {
   }
 
   irPrincipal() {
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['principal'], extras)
+    this.router.navigate(['principal'], { replaceUrl: true })
   }
 
   irPerfil() {
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['profile'], extras)
+    this.router.navigate(['profile'], { replaceUrl: true })
   }
 
 }

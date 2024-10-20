@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -41,17 +41,9 @@ export class CambiarContrasenaPage implements OnInit {
             this.v_mensaje = 'Las Contraseñas Ingresadas no coinciden';
           } else {
             this.db.cambiarContrasena(this.correo, this.mdl_actual, this.mdl_nueva);
-              let extras: NavigationExtras = {
-                replaceUrl: true
-              }
-              this.router.navigate(['login'], extras)
+              this.router.navigate(['login'], { replaceUrl: true })
             }
         }
       })
-
-    
     }
-
-    
-
 }

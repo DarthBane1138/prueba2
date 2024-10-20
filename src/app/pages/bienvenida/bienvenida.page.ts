@@ -15,9 +15,9 @@ export class BienvenidaPage implements OnInit {
     setTimeout(() => {
       this.db.validarSesion().then(data => {
             if (data == 0) {
-              this.router.navigate(['login']);
+              this.router.navigate(['login'], { replaceUrl: true});
             } else {
-              this.router.navigate(['principal'])
+              this.router.navigate(['principal'], { replaceUrl: true})
             }
           })
     }, 2000);

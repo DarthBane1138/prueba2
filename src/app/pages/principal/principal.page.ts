@@ -48,17 +48,11 @@ export class PrincipalPage implements OnInit {
 
   cerrarSesion() {
     this.db.eliminarSesion()
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['login'], extras)
+    this.router.navigate(['login'], { replaceUrl: true })
   }
 
   irPerfil() {
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['profile'], extras)
+    this.router.navigate(['profile'], { replaceUrl: true })
   }
 
   navegarCambiarContrasena() {
@@ -72,9 +66,6 @@ export class PrincipalPage implements OnInit {
   }
 
   irSedes() {
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['sedes'])
+    this.router.navigate(['sedes'], { replaceUrl: true })
   }
 }

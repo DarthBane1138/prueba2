@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
+import { ApisService } from 'src/app/services/apis.service';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -11,14 +13,18 @@ export class LoginPage implements OnInit {
 
   mdl_correo: string = '';
   mdl_contrasena: string = '';
+  correo: string = '';
+  nombre: string = '';
+  apellido: string = '';
+  carrera: string = '';
 
-  constructor(private router: Router, private db: DbService) { }
+  constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
   ngOnInit() {
     console.log("PLF: Login")
   }
 
-  login() {
+  /*login() {
     let extras: NavigationExtras = {
       state: {
         "correo": this.mdl_correo,
@@ -36,13 +42,42 @@ export class LoginPage implements OnInit {
         }
       })
       .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));
+  }*/
+
+      // Me da error, pero el de la API :) vuelvo después de obtener el error de registro
+  async login() {
+    try {
+      let datos = this.api.loginUsuario(
+      this.mdl_correo, this.mdl_contrasena
+      )
+      let respuesta = await lastValueFrom(datos);
+      let json_texto = JSON.stringify(respuesta);
+      let json = JSON.parse(json_texto);
+
+      if(json.status == "success") {
+        console.log("PLF: if")
+        this.correo = json.usuario.correo;
+        this.nombre = json.usuario.nombre;
+        this.apellido = json.usuario.apellido;
+        this.carrera = json.usuario.carrera;
+        console.log("Datos recuperados de API: ")
+        console.log("PLF: Correo: " + json.usuario.correo)
+        console.log("PLF: Nombre: " + json.usuario.nombre)
+        console.log("PLF: Apellido: " + json.usuario.apellido)
+        console.log("PLF: Carrera: " + json.usuario.carrera)
+        this.router.navigate(['principal'], { replaceUrl: true })
+      } else {
+        console.log("PLF: else")
+        console.log("PLF: Error al Iniciar Sesión: " + json.message )
+      }
+    }
+    catch (error) {
+      console.error("PLF: Error al consumir API", error)
+    }
   }
 
   signUp() {
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    }
-    this.router.navigate(['signup'], extras)
+    this.router.navigate(['signup'], { replaceUrl: true })
   }
 
 }
