@@ -49,23 +49,29 @@ export class LoginPage implements OnInit {
     try {
       let datos = this.api.loginUsuario(
       this.mdl_correo, this.mdl_contrasena
-      )
+      );
       let respuesta = await lastValueFrom(datos);
       let json_texto = JSON.stringify(respuesta);
       let json = JSON.parse(json_texto);
 
       if(json.status == "success") {
-        console.log("PLF: if")
+        console.log("PLF: Inicio de Sesión exitoso")
+        // Almacenar Sesión
         await this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
-        /*this.correo = json.usuario.correo;
-        this.nombre = json.usuario.nombre;
-        this.apellido = json.usuario.apellido;
-        this.carrera = json.usuario.carrera;
         console.log("Datos recuperados de API: ")
         console.log("PLF: Correo: " + json.usuario.correo)
         console.log("PLF: Nombre: " + json.usuario.nombre)
         console.log("PLF: Apellido: " + json.usuario.apellido)
-        console.log("PLF: Carrera: " + json.usuario.carrera)*/
+        console.log("PLF: Carrera: " + json.usuario.carrera)
+        // Actualizar la base de datos local con los datos recuperados de la API
+        this.db.actualizarUsuario(
+          json.usuario.correo,
+          this.mdl_contrasena,
+          json.usuario.nombre,
+          json.usuario.apellido,
+          json.usuario.carrera,
+          json.usuario.sede
+        )
         this.router.navigate(['principal'], { replaceUrl: true });
       } else {
         console.log("PLF: else")

@@ -41,12 +41,13 @@ export class SignupPage implements OnInit {
   }*/
 
   async registrar() {
+    // Registro de datos en API
     let datos = this.api.creacionUsuario(
       this.mdl_correo, this.mdl_contrasena,
       this.mdl_nombre, this.mdl_apellido,
       this.mdl_carrera
-    )
-
+    );
+    // Registro de Usuarios en Base de datos local
     this.db.almacenarUsuario(
       this.mdl_correo,
       this.mdl_contrasena,

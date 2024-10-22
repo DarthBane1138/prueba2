@@ -16,7 +16,7 @@ export class PrincipalPage implements OnInit {
   contrasena: string = 'Predeterminado';
   apellido: string = 'Predeterminado';
   carrera: string = 'Predeterminado';
-  sedeNombre: string = 'Predeterminado';
+  sedeNombre: string = '';
   sedeApi: string = 'Sede no encontrada'
   sedeAsignada: string = 'Sede no encontrada';
   listaSedes: any [] = [];
@@ -35,6 +35,7 @@ export class PrincipalPage implements OnInit {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
         this.infoUsuario();
+        this.infoUsuarioApi();
       })
   }
 
@@ -69,6 +70,8 @@ export class PrincipalPage implements OnInit {
       console.log("PLF: Nombre: " + json.usuario.nombre)
       console.log("PLF: Apellido: " + json.usuario.apellido)
       console.log("PLF: Carrea: " + json.usuario.carrera)
+    } else {
+      console.log("PLF No se han podido recuperar los datos desde la API")
     }
   }
 

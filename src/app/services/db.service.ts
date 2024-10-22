@@ -10,6 +10,7 @@ export class DbService {
   users: any[] = []; // Lista para los usuarios
   sedes: any [] = []; // Lista para sedes
   carreras: any [] = []; // Lista para carreras
+  sede: string = '';
 
   constructor(private sqlite: SQLite) {
     this.crearTablas();
@@ -191,4 +192,22 @@ export class DbService {
     })
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
   }
+
+  actualizarUsuario(correo: string, contrasena: string, nombre: string, apellido: string, carrera: string, sede: string) {
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      console.log("PLF: Actualizando datos en la base de datos local...");
+      return db.executeSql(
+        'UPDATE usuario SET correo = ?, contrasena = ?, nombre = ?, apellido = ?, carrera = ?, sede = ?',
+        [correo, contrasena, nombre, apellido, carrera, sede]
+      );
+    })
+    .then(() => console.log("PLF Usuario Actualizado OK"))
+    .catch(e => console.log('PLF: ERROR AL ACTUALIZAR USUARIO: ' + JSON.stringify(e)))
+    .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS: ' + JSON.stringify(e)));
+  }
 }
+
