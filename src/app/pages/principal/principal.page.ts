@@ -30,26 +30,43 @@ export class PrincipalPage implements OnInit {
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
   ngOnInit() {
-      console.log("PLF: No se recibieron parámetros")
       this.db.obtenerSesion().then(data => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
+        console.log("PLF Cedenciales Obtenidas de tabla usuario:")
+        console.log("PLF Correo: " + this.correo)
+        console.log("PLF Contraseña: " + this.contrasena)
         this.infoUsuario();
-        this.infoUsuarioApi();
+        // this.infoUsuarioApi();
       })
   }
 
-  infoUsuario() {
-    this.db.infoUsuario(this.correo, this.contrasena)
-      .then(data => {
+  async infoUsuario() {
+    try {
+      const data = await this.db.infoUsuario(this.correo, this.contrasena);
+      if (data) {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
         this.nombre = data.nombre;
         this.apellido = data.apellido;
         this.carrera = data.carrera;
         this.sedeNombre = data.sede;
-      })
-    this.seleccionarSede();
+  
+        console.log("PLF: Datos rescatados desde Base de Datos:");
+        console.log("PLF: Correo: " + this.correo);
+        console.log("PLF: Contraseña : " + this.contrasena);
+        console.log("PLF: Nombre: " + this.nombre);
+        console.log("PLF: Apellido: " + this.apellido);
+        console.log("PLF: Carrera: " + this.carrera);
+        console.log("PLF: Sede: " + this.sedeNombre);
+  
+        this.seleccionarSede();
+      } else {
+        console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
+      }
+    } catch (error) {
+      console.error('PLF: Error al recuperar información del usuario:', error);
+    }
   }
 
   async infoUsuarioApi() {

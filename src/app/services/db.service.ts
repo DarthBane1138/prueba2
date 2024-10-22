@@ -87,7 +87,7 @@ export class DbService {
       console.log("PLF: Sesión anterior Sobreescrita");
   
       await db.executeSql('insert into sesion values (?, ?)', [correo, contrasena]);
-      console.log('PLF: SESION ALMACENADO OK');
+      console.log('PLF: SESION ALMACENADA OK');
     } catch (e) {
       console.log('PLF: ERROR AL ALMACENAR SESION: ' + JSON.stringify(e));
     }
