@@ -37,7 +37,7 @@ export class PrincipalPage implements OnInit {
         console.log("PLF Correo: " + this.correo)
         console.log("PLF Contraseña: " + this.contrasena)
         this.infoUsuario();
-        // this.infoUsuarioApi();
+        this.infoUsuarioApi();
       })
   }
 

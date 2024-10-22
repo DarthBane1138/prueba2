@@ -42,11 +42,11 @@ export class SignupPage implements OnInit {
 
   async registrar() {
     // Registro de datos en API
-    /*let datos = this.api.creacionUsuario(
+    let datos = this.api.creacionUsuario(
       this.mdl_correo, this.mdl_contrasena,
       this.mdl_nombre, this.mdl_apellido,
       this.mdl_carrera
-    );*/
+    );
     // Registro de Usuarios en Base de datos local
     this.db.almacenarUsuario(
       this.mdl_correo,
@@ -57,7 +57,7 @@ export class SignupPage implements OnInit {
       this.mdl_sede
     );
 
-    /*let respuesta = await lastValueFrom(datos);
+    let respuesta = await lastValueFrom(datos);
     let json_texto = JSON.stringify(respuesta);
     let json = JSON.parse(json_texto);
 
@@ -68,11 +68,11 @@ export class SignupPage implements OnInit {
       console.log("PLF: Nombre: " + this.mdl_nombre)
       console.log("PLF: Apellido: " + this.mdl_apellido)
       console.log("PLF: Carrera: " + this.mdl_carrera)
-      console.log("PLF: Sede: " + this.mdl_sede)*/
+      console.log("PLF: Sede: " + this.mdl_sede)
       this.router.navigate(['login'], { replaceUrl: true })
-    /*} else {
+    } else {
       console.log("PLF: Error al Crear Usuario: " + json.message)
-    }*/
+    }
   }
 
 }

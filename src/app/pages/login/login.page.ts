@@ -44,9 +44,13 @@ export class LoginPage implements OnInit {
       .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));
   }*/
 
-      // Me da error, pero el de la API :) vuelvo después de obtener el error de registro
   async login() {
-    /*try {
+    console.log("PLF: Credenciales de acceso: ")
+    console.log("PLF: Correo: " + this.mdl_correo)
+    console.log("PLF: Contraseña: " + this.mdl_contrasena)
+
+    try {
+      // Login API
       let datos = this.api.loginUsuario(
       this.mdl_correo, this.mdl_contrasena
       );
@@ -63,15 +67,27 @@ export class LoginPage implements OnInit {
         console.log("PLF: Nombre: " + json.usuario.nombre)
         console.log("PLF: Apellido: " + json.usuario.apellido)
         console.log("PLF: Carrera: " + json.usuario.carrera)
+        // Login desde BD para almacenar usuario
+        this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
+        .then(data => {
+          if (data == 1) {
+            this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
+            // this.router.navigate(['principal'], { replaceUrl: true});
+          } else {
+            console.log('PLF BD: Credenciales inválidas')
+          }
+        })
+        .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));
+
         // Actualizar la base de datos local con los datos recuperados de la API
-        this.db.actualizarUsuario(
+        /*this.db.actualizarUsuario(
           json.usuario.correo,
           this.mdl_contrasena,
           json.usuario.nombre,
           json.usuario.apellido,
           json.usuario.carrera,
           json.usuario.sede
-        )
+        )*/
         this.router.navigate(['principal'], { replaceUrl: true });
       } else {
         console.log("PLF: else")
@@ -80,22 +96,7 @@ export class LoginPage implements OnInit {
     }
     catch (error) {
       console.error("PLF: Error al consumir API", error)
-    }*/
-      console.log("PLF: Credenciales de acceso: ")
-      console.log("PLF: Correo: " + this.mdl_correo)
-      console.log("PLF: Contraseña: " + this.mdl_contrasena)
-  
-      this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
-        .then(data => {
-          if (data == 1) {
-            this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
-            this.router.navigate(['principal'], { replaceUrl: true});
-          } else {
-            console.log('PLF: Credenciales inválidas')
-          }
-        })
-        .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));
-      
+    } 
   }
 
   signUp() {
