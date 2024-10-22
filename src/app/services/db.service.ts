@@ -14,7 +14,7 @@ export class DbService {
 
   constructor(private sqlite: SQLite) {
     this.crearTablas();
-   }
+  }
 
    // Servicio Crear Tablas
   crearTablas() {
@@ -201,13 +201,53 @@ export class DbService {
     .then((db: SQLiteObject) => {
       console.log("PLF: Actualizando datos en la base de datos local...");
       return db.executeSql(
-        'UPDATE usuario SET correo = ?, contrasena = ?, nombre = ?, apellido = ?, carrera = ?, sede = ?',
-        [correo, contrasena, nombre, apellido, carrera, sede]
+        'UPDATE usuario SET correo = ?, contrasena = ?, nombre = ?, apellido = ?, carrera = ?, sede = ? where correo = ? and contrasena = ?',
+        [correo, contrasena, nombre, apellido, carrera, sede, correo, contrasena]
       );
     })
     .then(() => console.log("PLF Usuario Actualizado OK"))
     .catch(e => console.log('PLF: ERROR AL ACTUALIZAR USUARIO: ' + JSON.stringify(e)))
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS: ' + JSON.stringify(e)));
   }
+
+  actualizarDatos(correo: string, contrasena: string, carrera: string) {
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      console.log("PLF: Actualizando datos en la base de datos local...");
+      return db.executeSql(
+        'UPDATE usuario SET contrasena = ?, carrera = ? where correo = ? and contrasena = ?',
+        [contrasena, carrera, correo, contrasena]
+      );
+    })
+    .then(() => console.log("PLF Datos de Usuario Actualizado OK"))
+    .catch(e => console.log('PLF: ERROR AL ACTUALIZAR USUARIO: ' + JSON.stringify(e)))
+    .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS: ' + JSON.stringify(e)));
+  }
+
+  async verificarUsuario(correo: string) {
+    try {
+      const db = await this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+      });
+      const resultado = await db.executeSql('select count(*) as cantidad from usuario where correo= ? ',
+        [correo]
+      );
+      // Verificamos si la cantidad es mayor que 0
+      const cantidad = resultado.rows.item(0).cantidad;
+      return cantidad > 0;
+    } catch (e) {
+      console.log('PLF: Error al verificar Usuario ' + JSON.stringify(e));
+      return false;
+    }
+  }
+
+  actualizarSede() {
+    
+  }
+
 }
 

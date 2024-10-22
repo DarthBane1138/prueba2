@@ -12,14 +12,18 @@
     </ion-item>
   <!-- Input Nueva Contraseña -->
     <ion-item lines="inset" class="ion-margin-top inputR custom-line">
-      <ion-input [(ngModel)]="mdl_nueva" label="Contraseña Nueva" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label"></ion-input>
+      <ion-input [(ngModel)]="mdl_contrasena_nueva" label="Contraseña Nueva" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label"></ion-input>
     </ion-item>
   <!-- Input Confirmación Contraseña -->
     <ion-item lines="inset" class="ion-margin-top inputR custom-line">
       <ion-input [(ngModel)]="mdl_confirmacion" label="Confirmar Contraseña" labelPlacement="floating" placeHolder="Confirme Contraseña" class="label"></ion-input>
     </ion-item>
+    <!-- Input Carrera Nueva -->
+    <ion-item  lines="inset" class="ion-margin-top inputR custom-line">
+      <ion-input [(ngModel)]="mdl_carrera_nueva" label="Carrera Nueva" labelPlacement="floating" placeHolder="Ingresa tu nueva Carrera" class="label"></ion-input>
+    </ion-item>
   <!-- Botón confirmación -->
-  <ion-button (click)="cambiarContrasena()" class="btn ion-margin-top" fill="solid" expand="block">
+  <ion-button (click)="actualizarUsuario()" class="btn ion-margin-top" fill="solid" expand="block">
     <span> Confirmar Cambio Contraseña </span>
   </ion-button>
 

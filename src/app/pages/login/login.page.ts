@@ -59,25 +59,25 @@ export class LoginPage implements OnInit {
       let json = JSON.parse(json_texto);
 
       if(json.status == "success") {
-        console.log("PLF: Inicio de Sesión exitoso")
+        console.log("PLF API: Inicio de Sesión exitoso")
         // Almacenar Sesión
         await this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
-        console.log("Datos recuperados de API: ")
+        console.log("PLF: Datos recuperados de API: ")
         console.log("PLF: Correo: " + json.usuario.correo)
         console.log("PLF: Nombre: " + json.usuario.nombre)
         console.log("PLF: Apellido: " + json.usuario.apellido)
         console.log("PLF: Carrera: " + json.usuario.carrera)
+        this.router.navigate(['principal'], { replaceUrl: true});
         // Login desde BD para almacenar usuario
-        this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
+        /*this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
         .then(data => {
           if (data == 1) {
             this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
-            // this.router.navigate(['principal'], { replaceUrl: true});
           } else {
             console.log('PLF BD: Credenciales inválidas')
           }
         })
-        .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));
+        .catch(e => console.log('PLF: Error al Iniciar Sesión' + JSON.stringify(e)));*/
 
         // Actualizar la base de datos local con los datos recuperados de la API
         /*this.db.actualizarUsuario(
@@ -88,9 +88,8 @@ export class LoginPage implements OnInit {
           json.usuario.carrera,
           json.usuario.sede
         )*/
-        this.router.navigate(['principal'], { replaceUrl: true });
+        //this.router.navigate(['principal'], { replaceUrl: true });
       } else {
-        console.log("PLF: else")
         console.log("PLF API: Error al Iniciar Sesión: " + json.message )
       }
     }

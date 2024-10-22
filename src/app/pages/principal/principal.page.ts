@@ -33,7 +33,7 @@ export class PrincipalPage implements OnInit {
       this.db.obtenerSesion().then(data => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        console.log("PLF Cedenciales Obtenidas de tabla usuario:")
+        console.log("PLF Credenciales Obtenidas de tabla usuario:")
         console.log("PLF Correo: " + this.correo)
         console.log("PLF Contraseña: " + this.contrasena)
         this.infoUsuario();
@@ -45,13 +45,16 @@ export class PrincipalPage implements OnInit {
     try {
       const data = await this.db.infoUsuario(this.correo, this.contrasena);
       if (data) {
+        
         this.correo = data.correo;
         this.contrasena = data.contrasena;
         this.nombre = data.nombre;
         this.apellido = data.apellido;
         this.carrera = data.carrera;
         this.sedeNombre = data.sede;
-  
+        
+        this.seleccionarSede();
+
         console.log("PLF: Datos rescatados desde Base de Datos:");
         console.log("PLF: Correo: " + this.correo);
         console.log("PLF: Contraseña : " + this.contrasena);
@@ -60,7 +63,7 @@ export class PrincipalPage implements OnInit {
         console.log("PLF: Carrera: " + this.carrera);
         console.log("PLF: Sede: " + this.sedeNombre);
   
-        this.seleccionarSede();
+        
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
       }
@@ -87,6 +90,23 @@ export class PrincipalPage implements OnInit {
       console.log("PLF: Nombre: " + json.usuario.nombre)
       console.log("PLF: Apellido: " + json.usuario.apellido)
       console.log("PLF: Carrea: " + json.usuario.carrera)
+      let usuarioExiste = await this.db.verificarUsuario(this.correo);
+
+      if (usuarioExiste) {
+        // Si existe, se actualiza
+        await this.db.actualizarUsuario(
+          this.correo, this.contrasena, this.nombre,
+          this.apellido, this.carrera, this.sedeNombre
+        );
+        console.log("PLF: Usuario actualizado correctamente.");
+      } else {
+        // Si no existe, se crea un nuevo usuario
+        await this.db.almacenarUsuario(
+          this.correo, this.contrasena, this.nombre,
+          this.apellido, this.carrera, this.sedeNombre
+        );
+        console.log("PLF: Nuevo usuario almacenado en la base de datos.");
+      }
     } else {
       console.log("PLF No se han podido recuperar los datos desde la API")
     }

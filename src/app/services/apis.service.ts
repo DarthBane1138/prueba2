@@ -33,4 +33,13 @@ export class ApisService {
     return this.http.get(this.ruta + "/api_duoc/usuario/sedes_obtener").pipe()
   }
 
+  modificacionUsuario(correo: string, contrasena: string, carrera:string) {
+    let objeto: any = {};
+    objeto.correo = correo;
+    objeto.contrasena = contrasena;
+    objeto.carrera = carrera;
+
+    return this.http.patch(this.ruta + "/api_duoc/usuario/usuario_modificar", objeto).pipe()
+  }
+
 }
