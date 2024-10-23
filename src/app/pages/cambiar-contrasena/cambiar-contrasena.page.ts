@@ -49,7 +49,7 @@ export class CambiarContrasenaPage implements OnInit {
       console.log("PLF: Contraseña: " + this.mdl_contrasena_nueva)
       console.log("PLF: Carrera: " + this.mdl_carrera_nueva)
       let usuarioExiste = await this.db.verificarUsuario(this.correo);
-      this.db.actualizarDatos(this.correo, this.mdl_contrasena_nueva, this.mdl_carrera_nueva)
+      this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.mdl_actual)
       console.log("Datos actualizados en la base de datos")
       this.cerrarSesion();
     }
@@ -60,7 +60,4 @@ export class CambiarContrasenaPage implements OnInit {
     this.router.navigate(['login'], { replaceUrl: true })
   }
 
-  actualizarUsuarioDb() {
-
-  }
 }

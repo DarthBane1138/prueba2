@@ -210,7 +210,7 @@ export class DbService {
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS: ' + JSON.stringify(e)));
   }
 
-  actualizarDatos(correo: string, contrasena: string, carrera: string) {
+  actualizarDatos(contrasenaNueva: string, carrera: string, correo: string, contrasenaActual: string) {
     this.sqlite.create({
       name: 'data.db',
       location: 'default'
@@ -219,7 +219,7 @@ export class DbService {
       console.log("PLF: Actualizando datos en la base de datos local...");
       return db.executeSql(
         'UPDATE usuario SET contrasena = ?, carrera = ? where correo = ? and contrasena = ?',
-        [contrasena, carrera, correo, contrasena]
+        [contrasenaNueva, carrera, correo, contrasenaActual]
       );
     })
     .then(() => console.log("PLF Datos de Usuario Actualizado OK"))
@@ -243,10 +243,6 @@ export class DbService {
       console.log('PLF: Error al verificar Usuario ' + JSON.stringify(e));
       return false;
     }
-  }
-
-  actualizarSesion() {
-    
   }
 
 }
