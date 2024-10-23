@@ -33,9 +33,9 @@ export class PrincipalPage implements OnInit {
       this.db.obtenerSesion().then(data => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        console.log("PLF Credenciales Obtenidas de tabla usuario:")
+        /*console.log("PLF Credenciales Obtenidas de tabla usuario:")
         console.log("PLF Correo: " + this.correo)
-        console.log("PLF Contraseña: " + this.contrasena)
+        console.log("PLF Contraseña: " + this.contrasena)*/
         this.infoUsuario();
         this.infoUsuarioApi();
       })
@@ -98,7 +98,7 @@ export class PrincipalPage implements OnInit {
           this.correo, this.contrasena, this.nombre,
           this.apellido, this.carrera, this.sedeNombre
         );
-        console.log("PLF: Usuario actualizado correctamente.");
+        /*console.log("PLF: Usuario actualizado correctamente.");*/
       } else {
         // Si no existe, se crea un nuevo usuario
         await this.db.almacenarUsuario(
@@ -166,7 +166,7 @@ export class PrincipalPage implements OnInit {
     }
   }
 
-  actualizarSede() {
+  irActualizarSede() {
     this.router.navigate(['actualizar-sede'], { replaceUrl: true })
   }
 

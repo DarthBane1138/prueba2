@@ -245,5 +245,19 @@ export class DbService {
     }
   }
 
+  async actualizarSede(nuevaSede: string, correo: string, contrasena: string) {
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      db.executeSql('update usuario set sede = ? where correo = ? and contrasena = ?',
+        [nuevaSede, correo, contrasena])
+        .then(() => console.log('PLF: USUARIO MODIFICADO OK, Nueva sede'))
+        .catch(e => console.log('PLF: ERROR AL MODIFICAR SEDE: ' + JSON.stringify(e)));
+    })
+    .catch(e => console.log('PLF: ERROR AL INGRESAR A BASE DE DATOS'));
+  }
+
 }
 

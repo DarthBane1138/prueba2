@@ -11,11 +11,11 @@ import { DbService } from 'src/app/services/db.service';
 })
 export class ActualizarSedePage implements OnInit {
 
-  mdl_contrasena: string = '';
+  mdl_contrasena_actual: string = '';
   v_visible: string = '';
   v_mensaje: string = '';
   mdl_sede: string = '';
-  mdl_contrasena_nueva: string = '';
+  mdl_sede_nueva:string = '';
   mdl_carrera_nueva: string = '';
   correo: string = '';
   contrasena: string = '';
@@ -30,9 +30,9 @@ export class ActualizarSedePage implements OnInit {
     this.db.obtenerSesion().then(data => {
       this.correo = data.correo;
       this.contrasena = data.contrasena;
-      console.log("PLF: Credenciales Obtenidas de de tabla usuario: ")
+      /*console.log("PLF: Credenciales Obtenidas de de tabla usuario: ")
       console.log("PLF: Correo:  " + this.correo)
-      console.log("PLF: Contraseña: " + this.contrasena)
+      console.log("PLF: Contraseña: " + this.contrasena)*/
     })
   }
 
@@ -48,13 +48,13 @@ export class ActualizarSedePage implements OnInit {
         this.carrera = data.carrera;
         this.sedeNombre = data.sede;
 
-        console.log("PLF: Datos rescatados desde Base de Datos:");
+        /*console.log("PLF: Datos rescatados desde Base de Datos:");
         console.log("PLF: Correo: " + this.correo);
         console.log("PLF: Contraseña : " + this.contrasena);
         console.log("PLF: Nombre: " + this.nombre);
         console.log("PLF: Apellido: " + this.apellido);
         console.log("PLF: Carrera: " + this.carrera);
-        console.log("PLF: Sede: " + this.sedeNombre);
+        console.log("PLF: Sede: " + this.sedeNombre);*/
         
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
@@ -64,23 +64,14 @@ export class ActualizarSedePage implements OnInit {
     }
   }
 
-  async actualizarUsuario() {
-    let datos = this.api.modificacionUsuario(
-      this.correo,
-      this.mdl_contrasena_nueva,
-      this.mdl_carrera_nueva
-    );
-    let respuesta = await lastValueFrom(datos);
-    let json_texto = JSON.stringify(respuesta);
-    let json = JSON.parse(json_texto);
-    console.log("PLF: Resultado modificación: " + json.message)
-
-    if(json.status == "success") {
-      console.log("PLF: Usuario Modificado exitosamente")
-      console.log("PLF: Correo: " + this.correo)
-      console.log("PLF: Contraseña: " + this.mdl_contrasena_nueva)
-      console.log("PLF: Carrera: " + this.mdl_carrera_nueva)
-      this.cerrarSesion();
+  async actualizarSede() {
+    if(this.contrasena == this.mdl_contrasena_actual) {
+      await this.db.actualizarSede(this.mdl_sede_nueva, this.correo, this.mdl_contrasena_actual);
+      console.log("Sede actualizada, estás en:");
+      console.log(this.mdl_sede_nueva);
+      this.router.navigate(['principal'], { replaceUrl: true })
+    } else {
+      console.log("PLF: Contraseña Incorrecta, inténtelo de nuevo")
     }
   }
 
