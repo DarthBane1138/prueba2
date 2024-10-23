@@ -1,0 +1,1 @@
+Se actualiza API, falta acceder a BD cuando se cambia contraseña

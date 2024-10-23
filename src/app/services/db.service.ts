@@ -245,7 +245,7 @@ export class DbService {
     }
   }
 
-  actualizarSede() {
+  actualizarSesion() {
     
   }
 
