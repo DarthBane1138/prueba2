@@ -12,7 +12,7 @@ import { DbService } from 'src/app/services/db.service';
 export class ActualizarSedePage implements OnInit {
 
   mdl_contrasena_actual: string = '';
-  v_visible: string = '';
+  v_visible = false;
   v_mensaje: string = '';
   mdl_sede: string = '';
   mdl_sede_nueva:string = '';
@@ -71,13 +71,9 @@ export class ActualizarSedePage implements OnInit {
       console.log(this.mdl_sede_nueva);
       this.router.navigate(['principal'], { replaceUrl: true })
     } else {
+      this.v_visible = true;
+      this.v_mensaje = 'Contraseña Incorrecta, intentelo denuevo';
       console.log("PLF: Contraseña Incorrecta, inténtelo de nuevo")
     }
   }
-
-  cerrarSesion() {
-    this.db.eliminarSesion()
-    this.router.navigate(['login'], { replaceUrl: true })
-  }
-
 }

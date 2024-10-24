@@ -19,6 +19,7 @@ export class CambiarContrasenaPage implements OnInit {
   v_visible = false;
   v_mensaje = '';
   mdl_carrera_nueva: string = '';
+  mdl_correo_actual: string = '';
 
   constructor(private router: Router, private api: ApisService, private db: DbService) { }
 
@@ -33,28 +34,34 @@ export class CambiarContrasenaPage implements OnInit {
   }
 
   async actualizarUsuario() {
-    let datos = this.api.modificacionUsuario(
-      this.correo,
-      this.mdl_contrasena_nueva,
-      this.mdl_carrera_nueva
-    );
-    let respuesta = await lastValueFrom(datos);
-    let json_texto = JSON.stringify(respuesta);
-    let json = JSON.parse(json_texto);
-    console.log("PLF : Resultado modificación API: " + json.message)
+    if(this.contrasena == this.mdl_actual){
+      this.v_visible = false;
+      let datos = this.api.modificacionUsuario(
+        this.mdl_correo_actual,
+        this.mdl_contrasena_nueva,
+        this.mdl_carrera_nueva
+      );
+      let respuesta = await lastValueFrom(datos);
+      let json_texto = JSON.stringify(respuesta);
+      let json = JSON.parse(json_texto);
+      console.log("PLF : Resultado modificación API: " + json.message)
 
-    if(json.status == "success") {
-      console.log("PLF: Correo: " + this.correo)
-      console.log("PLF: Correo Antiguo: " + this.correo)
-      console.log("PLF: Contraseña: " + this.mdl_actual)
-      console.log("PLF: Carrera: " + this.mdl_carrera_nueva)
-      await this.db.verificarUsuario(this.correo);
-      this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.mdl_actual)
-      console.log("Datos actualizados en la base de datos")
-      this.cerrarSesion();
+      if(json.status == "success") {
+        console.log("PLF: Correo: " + this.correo)
+        console.log("PLF: Correo Antiguo: " + this.correo)
+        console.log("PLF: Contraseña: " + this.mdl_actual)
+        console.log("PLF: Carrera: " + this.mdl_carrera_nueva)
+        await this.db.verificarUsuario(this.correo);
+        this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.mdl_actual)
+        console.log("Datos actualizados en la base de datos")
+        this.cerrarSesion();
+      } else {
+        this.v_mensaje = json.message;
+        this.v_visible = true;
+      }
     } else {
-      this.v_mensaje = json.message;
       this.v_visible = true;
+      this.v_mensaje = "Contraseña actual incorrecta, inténtelo denuevo";
     }
   }
 

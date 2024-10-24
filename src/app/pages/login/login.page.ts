@@ -17,6 +17,10 @@ export class LoginPage implements OnInit {
   nombre: string = '';
   apellido: string = '';
   carrera: string = '';
+  v_visible = false;
+  v_mensaje = '';
+  isToastOpen = false;
+  duration: number = 3000;
 
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
@@ -59,6 +63,12 @@ export class LoginPage implements OnInit {
       let json = JSON.parse(json_texto);
 
       if(json.status == "success") {
+        this.v_mensaje = "Iniciando Sesión, espere un momento";
+        this.isToastOpen = true;
+        setTimeout(() => {
+          this.isToastOpen = false;
+          this.router.navigate(['principal'], { replaceUrl: true});
+        }, 3000)
         console.log("PLF API: Inicio de Sesión exitoso")
         // Almacenar Sesión
         await this.db.almacenarSesion(this.mdl_correo, this.mdl_contrasena);
@@ -67,7 +77,6 @@ export class LoginPage implements OnInit {
         console.log("PLF: Nombre: " + json.usuario.nombre)
         console.log("PLF: Apellido: " + json.usuario.apellido)
         console.log("PLF: Carrera: " + json.usuario.carrera)
-        this.router.navigate(['principal'], { replaceUrl: true});
         // Login desde BD para almacenar usuario
         /*this.db.loginUsuario(this.mdl_correo, this.mdl_contrasena)
         .then(data => {
@@ -91,6 +100,8 @@ export class LoginPage implements OnInit {
         //this.router.navigate(['principal'], { replaceUrl: true });
       } else {
         console.log("PLF API: Error al Iniciar Sesión: " + json.message )
+        this.v_visible = true;
+        this.v_mensaje = json.message;
       }
     }
     catch (error) {
@@ -100,6 +111,11 @@ export class LoginPage implements OnInit {
 
   signUp() {
     this.router.navigate(['signup'], { replaceUrl: true })
+  }
+
+  // Función para abrir Toast
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
 }

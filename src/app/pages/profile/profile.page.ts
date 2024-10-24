@@ -18,9 +18,9 @@ export class ProfilePage implements OnInit {
   carrera: string = '';
   sede: string = '';
   listaSedes: any [] = [];
-  sedeNombre: string = 'Predeterminado';
+  sedeNombre: string = '';
   sedeApi: string = 'Sede no encontrada'
-  sedeApiNombre: string = ''; 
+  sedeApiNombre: string = 'No encontrada'; 
   sedeApiDireccion: string = ''; 
   sedeApiTelefono: string = ''; 
   sedeApiHorarioAtencion: string = ''; 

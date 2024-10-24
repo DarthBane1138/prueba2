@@ -18,6 +18,10 @@ export class SignupPage implements OnInit {
   mdl_apellido: string = '';
   mdl_carrera: string = '';
   mdl_sede: string = '';
+  v_visible = false;
+  v_mensaje: string = '';
+  isToastOpen = false;
+  duration: number = 3000;
 
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
@@ -25,7 +29,7 @@ export class SignupPage implements OnInit {
   }
 
   inicio() {
-    this.router.navigate(['login'])
+    this.router.navigate(['login'], { replaceUrl: true })
   }
 
   /*registrar() {
@@ -47,32 +51,44 @@ export class SignupPage implements OnInit {
       this.mdl_nombre, this.mdl_apellido,
       this.mdl_carrera
     );
-    // Registro de Usuarios en Base de datos local
-    this.db.almacenarUsuario(
-      this.mdl_correo,
-      this.mdl_contrasena,
-      this.mdl_nombre,
-      this.mdl_apellido,
-      this.mdl_carrera,
-      this.mdl_sede
-    );
 
     let respuesta = await lastValueFrom(datos);
     let json_texto = JSON.stringify(respuesta);
     let json = JSON.parse(json_texto);
 
     if(json.status == "success") {
-      console.log("PLF: Usuario Creado")
+      this.v_mensaje = json.message;
+      this.isToastOpen = true;
+      /*console.log("PLF: Usuario Creado")
       console.log("PLF: Correo: " + this.mdl_correo)
       console.log("PLF: Contraseña: " + this.mdl_contrasena)
       console.log("PLF: Nombre: " + this.mdl_nombre)
       console.log("PLF: Apellido: " + this.mdl_apellido)
       console.log("PLF: Carrera: " + this.mdl_carrera)
-      console.log("PLF: Sede: " + this.mdl_sede)
-      this.router.navigate(['login'], { replaceUrl: true })
+      console.log("PLF: Sede: " + this.mdl_sede)*/
+      // Registro de Usuarios en Base de datos local
+      this.db.almacenarUsuario(
+        this.mdl_correo,
+        this.mdl_contrasena,
+        this.mdl_nombre,
+        this.mdl_apellido,
+        this.mdl_carrera,
+        this.mdl_sede
+      );
+      setTimeout(() => {
+          this.isToastOpen = false;
+          this.router.navigate(['login'], { replaceUrl: true })
+      }, 3000);
     } else {
       console.log("PLF: Error al Crear Usuario: " + json.message)
+      this.v_visible = true;
+      this.v_mensaje =  json.message;
     }
+  }
+
+  // Función para abrir Toast
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
 }

@@ -19,9 +19,18 @@
     <!-- Acá iba un spinner -->
     <span>Ingresar</span>
   </ion-button>
+  <!-- Mensaje -->
+  <ion-item *ngIf="v_visible" color="warning" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
   <!-- Registro -->
    <div class="text-container ion-text-center">
     <small class="registerQ">¿No estás registrado?</small>
     <small class="signup-button" (click)="signUp()">. Crea una cuenta aquí</small>
    </div>
+   <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="v_mensaje"
+    [duration]="duration"
+    (didDismiss)="setOpen(false)"
+    position="bottom"
+  ></ion-toast>
 </ion-content>
