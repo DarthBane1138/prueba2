@@ -11,18 +11,15 @@ import { DbService } from 'src/app/services/db.service';
 })
 export class ActualizarSedePage implements OnInit {
 
+
   mdl_contrasena_actual: string = '';
+  mdl_sede_nueva:string = '';
   v_visible = false;
   v_mensaje: string = '';
-  mdl_sede: string = '';
-  mdl_sede_nueva:string = '';
-  mdl_carrera_nueva: string = '';
   correo: string = '';
   contrasena: string = '';
-  nombre: string = '';
   apellido: string = '';
   carrera: string = '';
-  sedeNombre: string = '';
 
   constructor(private db: DbService, private api: ApisService, private router: Router) { }
 
@@ -36,26 +33,16 @@ export class ActualizarSedePage implements OnInit {
     })
   }
 
+  // Se rescata información de usuario desde la Base de Datos
   async infoUsuario() {
     try {
       const data = await this.db.infoUsuario(this.correo, this.contrasena);
       if (data) {
-        
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        this.nombre = data.nombre;
-        this.apellido = data.apellido;
-        this.carrera = data.carrera;
-        this.sedeNombre = data.sede;
-
         /*console.log("PLF: Datos rescatados desde Base de Datos:");
         console.log("PLF: Correo: " + this.correo);
-        console.log("PLF: Contraseña : " + this.contrasena);
-        console.log("PLF: Nombre: " + this.nombre);
-        console.log("PLF: Apellido: " + this.apellido);
-        console.log("PLF: Carrera: " + this.carrera);
-        console.log("PLF: Sede: " + this.sedeNombre);*/
-        
+        console.log("PLF: Contraseña : " + this.contrasena);*/
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
       }
@@ -64,6 +51,7 @@ export class ActualizarSedePage implements OnInit {
     }
   }
 
+  // Función para actualización de sede
   async actualizarSede() {
     if(this.contrasena == this.mdl_contrasena_actual) {
       await this.db.actualizarSede(this.mdl_sede_nueva, this.correo, this.mdl_contrasena_actual);

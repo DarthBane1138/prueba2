@@ -37,14 +37,14 @@ export class PrincipalPage implements OnInit {
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
   ngOnInit() {
-      this.db.obtenerSesion().then(data => {
+      this.db.obtenerSesion().then(async (data) => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
         /*console.log("PLF Credenciales Obtenidas de tabla usuario:")
         console.log("PLF Correo: " + this.correo)
         console.log("PLF Contraseña: " + this.contrasena)*/
-        this.infoUsuario();
-        this.infoUsuarioApi();
+        await this.infoUsuario();
+        await this.infoUsuarioApi();
         setTimeout(() => {
           this.solicitudActualizarSede();
         }, 2000);
@@ -123,30 +123,7 @@ export class PrincipalPage implements OnInit {
     }
   }
 
-
-  cerrarSesion() {
-    this.db.eliminarSesion()
-    this.router.navigate(['login'], { replaceUrl: true })
-  }
-
-  irPerfil() {
-    this.router.navigate(['profile'], { replaceUrl: true })
-  }
-
-  navegarCambiarContrasena() {
-    let extras: NavigationExtras = {
-      state: {
-        correo: this.correo,
-        contrasena: this.contrasena
-      }, replaceUrl: true
-    }
-    this.router.navigate(['cambiar-contrasena'], extras)
-  }
-
-  irSedes() {
-    this.router.navigate(['sedes'], { replaceUrl: true })
-  }
-
+  // Función para seleccionar sede actual de usuario
   async seleccionarSede(){
     this.listaSedes = [];
     let datos = this.api.obtencionSedes();
@@ -168,7 +145,6 @@ export class PrincipalPage implements OnInit {
         this.sedeApiHorarioAtencion = json[0][x].HORARIO_ATENCION;
         this.sedeApiImagen = json[0][x].IMAGEN;
       }
-
       this.listaSedes.push(sede);
     }
     if (this.sedeApi) {
@@ -177,11 +153,35 @@ export class PrincipalPage implements OnInit {
       console.log("PLF: No se encontró una sede con ese nombre.");
     }
   }
+  
+  // Función para cerrar Sesión
+  cerrarSesion() {
+    this.db.eliminarSesion()
+    this.router.navigate(['login'], { replaceUrl: true })
+  }
 
+  // Navegación a Perfil
+  irPerfil() {
+    this.router.navigate(['profile'], { replaceUrl: true })
+  }
+
+  // Navegación a página de cambio de contraseña
+  navegarCambiarContrasena() {
+    this.router.navigate(['cambiar-contrasena'], { replaceUrl: true })
+  }
+
+  // Navegación a página de sedes
+  irSedes() {
+    this.router.navigate(['sedes'], { replaceUrl: true })
+  }
+
+
+  // Navegación para actualizar sede
   irActualizarSede() {
     this.router.navigate(['actualizar-sede'], { replaceUrl: true })
   }
 
+  // Recordatorio para actualizar sede
   solicitudActualizarSede() {
     if (this.sedeNombre == '') {
       this.isAlertOpen = true;
@@ -191,6 +191,7 @@ export class PrincipalPage implements OnInit {
     }
   }
 
+  // Función para controlar alerta
   setOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
   }
