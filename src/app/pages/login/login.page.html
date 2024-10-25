@@ -1,12 +1,9 @@
-<ion-header [translucent]="true">
-</ion-header>
-
 <ion-content [fullscreen]="true" class="fondo">
+  <!-- Logo Duoc -->
   <div class="logo">
     <img src="../../../assets/img/fondo-azul.jpg" alt="Logo" style="height: 50px">
   </div>
-
-  <!-- Input Nombre de Usuario o Correo -->
+  <!-- Input Correo -->
   <ion-item lines="none" class="ion-margin-top input">
     <ion-input [(ngModel)]="mdl_correo" label="Correo:" labelPlacement="floating" placeholder="Ingresa tu Correo" class="label"></ion-input>
   </ion-item>
@@ -16,8 +13,9 @@
   </ion-item>
   <!-- Botón Inicio Sesión -->
   <ion-button (click)="login()" class="btn ion-margin-top" fill="solid" expand="block">
-    <!-- Acá iba un spinner -->
-    <span>Ingresar</span>
+    <ion-spinner *ngIf="spinnervisible" name="circular" slot="start"></ion-spinner>
+    <!-- Spinner -->
+    <span *ngIf="!spinnervisible">Ingresar</span>
   </ion-button>
   <!-- Mensaje -->
   <ion-item *ngIf="v_visible" color="warning" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
@@ -26,6 +24,7 @@
     <small class="registerQ">¿No estás registrado?</small>
     <small class="signup-button" (click)="signUp()">. Crea una cuenta aquí</small>
    </div>
+   <!-- Toast -->
    <ion-toast
     [isOpen]="isToastOpen"
     [message]="v_mensaje"

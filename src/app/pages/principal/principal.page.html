@@ -42,6 +42,13 @@
         <small class=signup-button (click)="irActualizarSede()">Actualízala acá</small>
       </div>
 
+      <ion-alert
+      [isOpen]="isAlertOpen"
+      [header]="v_mensaje"
+      [buttons]="alertButtons"
+      cssClass = "custom-alert-message"
+    ></ion-alert>
+
 </ion-content>
 
 <!-- Tab bar/barra de navegacion -->

@@ -18,9 +18,9 @@
     <ion-input  [(ngModel)]="mdl_contrasena" label="Contraseña:" labelPlacement="floating" placeholder="Ingresa la contraseña" class="label"></ion-input>
   </ion-item>
   <!-- Input Confirmar Contraseña -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <!--<ion-item lines="inset" class="ion-margin-top inputR custom-line">
     <ion-input [(ngModel)]="mdl_contrasena_conf" label="Confirmar Contraseña:" labelPlacement="floating" placeholder="Confirma tu contraseña" class="label"></ion-input>
-  </ion-item>
+  </ion-item>-->
   <!-- Input Nombre -->
   <ion-item lines="inset" class="ion-margin-top inputR custom-line">
     <ion-input [(ngModel)]="mdl_nombre" label="Nombre:" labelPlacement="floating" placeholder="Ingresa tu Nombre" class="label"></ion-input>
@@ -65,12 +65,19 @@
   </p>
 
     <!-- Toast con mensajes de validaciones -->
-    <ion-toast
+    <!--<ion-toast
     [isOpen]="isToastOpen"
     [message]="v_mensaje"
     [duration]="duration"
     (didDismiss)="setOpen(false)"
     position="bottom"
-  ></ion-toast>
+  ></ion-toast>-->
+
+  <ion-alert
+  [isOpen]="isAlertOpen"
+  [header]="v_mensaje"
+  [buttons]="alertButtons"
+  cssClass = "custom-alert-message"
+></ion-alert>
 </ion-content>
 

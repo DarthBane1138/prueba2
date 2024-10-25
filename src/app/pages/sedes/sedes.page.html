@@ -7,7 +7,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding bkgrnd">
   <h1 class="profile-title">Estas son nuestras sedes a lo largo de la región metropolitana</h1>
-  <ion-item *ngFor="let sede of listaSedes">
+  <ion-item *ngFor="let sede of listaSedes" class="bkgrnd">
     <ion-card>
       <img alt="Silhouette of mountains" src="{{ sede.imagen }}" />
       <ion-card-header>

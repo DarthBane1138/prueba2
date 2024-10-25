@@ -20,30 +20,20 @@ export class SignupPage implements OnInit {
   mdl_sede: string = '';
   v_visible = false;
   v_mensaje: string = '';
-  isToastOpen = false;
-  duration: number = 3000;
+  isAlertOpen = false;
+  alertButtons = ['OK'];
 
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
   ngOnInit() {
   }
 
+  // Redirección a página de inicio
   inicio() {
     this.router.navigate(['login'], { replaceUrl: true })
   }
 
-  /*registrar() {
-    this.db.almacenarUsuario(
-      this.mdl_correo,
-      this.mdl_contrasena,
-      this.mdl_nombre,
-      this.mdl_apellido,
-      this.mdl_carrera,
-      this.mdl_sede
-    );
-    this.router.navigate(['login'], { replaceUrl: true });
-  }*/
-
+  // Función para registrar (API y BD)
   async registrar() {
     // Registro de datos en API
     let datos = this.api.creacionUsuario(
@@ -58,7 +48,7 @@ export class SignupPage implements OnInit {
 
     if(json.status == "success") {
       this.v_mensaje = json.message;
-      this.isToastOpen = true;
+      this.isAlertOpen = true;
       /*console.log("PLF: Usuario Creado")
       console.log("PLF: Correo: " + this.mdl_correo)
       console.log("PLF: Contraseña: " + this.mdl_contrasena)
@@ -76,7 +66,7 @@ export class SignupPage implements OnInit {
         this.mdl_sede
       );
       setTimeout(() => {
-          this.isToastOpen = false;
+          this.isAlertOpen = false;
           this.router.navigate(['login'], { replaceUrl: true })
       }, 3000);
     } else {
@@ -88,7 +78,7 @@ export class SignupPage implements OnInit {
 
   // Función para abrir Toast
   setOpen(isOpen: boolean) {
-    this.isToastOpen = isOpen;
+    this.isAlertOpen = isOpen;
   }
 
 }

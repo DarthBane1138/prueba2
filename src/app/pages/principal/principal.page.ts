@@ -11,20 +11,27 @@ import { DbService } from 'src/app/services/db.service';
 })
 export class PrincipalPage implements OnInit {
 
+  // Variables rescatadas de API
   correo: string = 'Predeterminado';
   nombre: string = 'Predeterminado';
   contrasena: string = 'Predeterminado';
   apellido: string = 'Predeterminado';
   carrera: string = 'Predeterminado';
+  // Variables de sede usuario
   sedeNombre: string = '';
   sedeApi: string = 'Sede no encontrada'
   sedeAsignada: string = 'Sede no encontrada';
+  // Para listar sedes
   listaSedes: any [] = [];
   sedeApiNombre: string = ''; 
   sedeApiDireccion: string = ''; 
   sedeApiTelefono: string = ''; 
   sedeApiHorarioAtencion: string = ''; 
-  sedeApiImagen: string = ''; 
+  sedeApiImagen: string = '';
+  // Varibales para alerta
+  isAlertOpen = false;
+  v_mensaje: string = '';
+  alertButtons = ['OK'];
   
 
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
@@ -38,40 +45,13 @@ export class PrincipalPage implements OnInit {
         console.log("PLF Contraseña: " + this.contrasena)*/
         this.infoUsuario();
         this.infoUsuarioApi();
+        setTimeout(() => {
+          this.solicitudActualizarSede();
+        }, 2000);
       })
   }
-
-  async infoUsuario() {
-    try {
-      const data = await this.db.infoUsuario(this.correo, this.contrasena);
-      if (data) {
-        
-        this.correo = data.correo;
-        this.contrasena = data.contrasena;
-        this.nombre = data.nombre;
-        this.apellido = data.apellido;
-        this.carrera = data.carrera;
-        this.sedeNombre = data.sede;
-        
-        this.seleccionarSede();
-
-        console.log("PLF: Datos rescatados desde Base de Datos:");
-        console.log("PLF: Correo: " + this.correo);
-        console.log("PLF: Contraseña : " + this.contrasena);
-        console.log("PLF: Nombre: " + this.nombre);
-        console.log("PLF: Apellido: " + this.apellido);
-        console.log("PLF: Carrera: " + this.carrera);
-        console.log("PLF: Sede: " + this.sedeNombre);
   
-        
-      } else {
-        console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
-      }
-    } catch (error) {
-      console.error('PLF: Error al recuperar información del usuario:', error);
-    }
-  }
-
+  // Obtención de datos por API
   async infoUsuarioApi() {
     let datos = this.api.loginUsuario(
       this.correo, this.contrasena
@@ -81,6 +61,7 @@ export class PrincipalPage implements OnInit {
     let json = JSON.parse(json_texto);
 
     if(json.status == "success") {
+      // Asignación de variables
       this.correo = json.usuario.correo;
       this.nombre = json.usuario.nombre;
       this.apellido = json.usuario.apellido;
@@ -90,15 +71,15 @@ export class PrincipalPage implements OnInit {
       console.log("PLF: Nombre: " + json.usuario.nombre)
       console.log("PLF: Apellido: " + json.usuario.apellido)
       console.log("PLF: Carrea: " + json.usuario.carrera)
+      // Verificación de usuario en Base de Datos
       let usuarioExiste = await this.db.verificarUsuario(this.correo);
-
       if (usuarioExiste) {
         // Si existe, se actualiza
         await this.db.actualizarUsuario(
           this.correo, this.contrasena, this.nombre,
           this.apellido, this.carrera, this.sedeNombre
         );
-        /*console.log("PLF: Usuario actualizado correctamente.");*/
+        console.log("PLF: Usuario actualizado correctamente.");
       } else {
         // Si no existe, se crea un nuevo usuario
         await this.db.almacenarUsuario(
@@ -111,6 +92,37 @@ export class PrincipalPage implements OnInit {
       console.log("PLF No se han podido recuperar los datos desde la API")
     }
   }
+
+  // Obtención de información desde Base de Datos
+  async infoUsuario() {
+    try {
+      const data = await this.db.infoUsuario(this.correo, this.contrasena);
+      if (data) {
+        // Se obtienen datos
+        this.correo = data.correo;
+        this.contrasena = data.contrasena;
+        this.nombre = data.nombre;
+        this.apellido = data.apellido;
+        this.carrera = data.carrera;
+        this.sedeNombre = data.sede;
+        // Selección de sede con nombre de sede
+        this.seleccionarSede();
+        // console.log para depuración
+        /*console.log("PLF: Datos rescatados desde Base de Datos:");
+        console.log("PLF: Correo: " + this.correo);
+        console.log("PLF: Contraseña : " + this.contrasena);
+        console.log("PLF: Nombre: " + this.nombre);
+        console.log("PLF: Apellido: " + this.apellido);
+        console.log("PLF: Carrera: " + this.carrera);
+        console.log("PLF: Sede: " + this.sedeNombre);*/
+      } else {
+        console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
+      }
+    } catch (error) {
+      console.error('PLF: Error al recuperar información del usuario:', error);
+    }
+  }
+
 
   cerrarSesion() {
     this.db.eliminarSesion()
@@ -168,6 +180,19 @@ export class PrincipalPage implements OnInit {
 
   irActualizarSede() {
     this.router.navigate(['actualizar-sede'], { replaceUrl: true })
+  }
+
+  solicitudActualizarSede() {
+    if (this.sedeNombre == '') {
+      this.isAlertOpen = true;
+      this.v_mensaje = "No tienes una sede asignada, te invitamos a actualizarla"
+    } else {
+      console.log("PLF: Sede ya asignada")
+    }
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
   }
 
 }

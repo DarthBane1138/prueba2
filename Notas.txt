@@ -1,4 +1,1 @@
 Cosas por arreglar:
-- Mostrar mensajes de error devueltos por API
-- Mostrar mensajes de error para funciones adicionales
-- Cuando se cambia contraseña se pierde acceso a foto sede ¿Por que?
