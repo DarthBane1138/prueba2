@@ -11,12 +11,14 @@ import { DbService } from 'src/app/services/db.service';
 })
 export class ProfilePage implements OnInit {
 
+  // Variables desde BD
   correo: string = '';
   nombre: string = '';
   apellido: string = ''
   contrasena: string = '';
   carrera: string = '';
   sede: string = '';
+  // Variables para obtención de Sede
   listaSedes: any [] = [];
   sedeNombre: string = '';
   sedeApi: string = 'Sede no encontrada'
@@ -39,6 +41,7 @@ export class ProfilePage implements OnInit {
     })
   }
 
+  // Obtención de datos desde BD
   async infoUsuario() {
     try {
       const data = await this.db.infoUsuario(this.correo, this.contrasena);
@@ -90,6 +93,7 @@ export class ProfilePage implements OnInit {
     }
   }*/
 
+    // Selección de Sede
   async seleccionarSede(){
     this.listaSedes = [];
     let datos = this.api.obtencionSedes();
@@ -121,10 +125,12 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  // Navegación a sedes
   irSedes() {
     this.router.navigate(['sedes'], { replaceUrl: true })
   }
 
+  // Navegación a página principal
   irHome(){
     this.router.navigate(['principal'], { replaceUrl: true })
   }

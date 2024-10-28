@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-import { ApisService } from 'src/app/services/apis.service';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -11,17 +10,17 @@ import { DbService } from 'src/app/services/db.service';
 })
 export class ActualizarSedePage implements OnInit {
 
-
+  // Variables para inputs
   mdl_contrasena_actual: string = '';
   mdl_sede_nueva:string = '';
+  // Estados alertas
   v_visible = false;
   v_mensaje: string = '';
+  // datos desde Siesión
   correo: string = '';
   contrasena: string = '';
-  apellido: string = '';
-  carrera: string = '';
 
-  constructor(private db: DbService, private api: ApisService, private router: Router) { }
+  constructor(private db: DbService, private router: Router) { }
 
   ngOnInit() {
     this.db.obtenerSesion().then(data => {

@@ -128,7 +128,7 @@
     margin-bottom: 2px;
 }
 
-.inputR{
+/*.inputR{
     --background: transparent;
     --color: #0B253E;
     margin-left: auto;
@@ -136,6 +136,16 @@
     border-radius: 5px;
     width: 85%;
     border-bottom: 1px solid #012b52;
+}*/
+
+.inputR {
+  --background: #181818;
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px 0 black, 
+               -1px -1px 0 black, 
+               1px -1px 0 black, 
+               -1px 1px 0 black;
+  border-radius: 5px;
 }
 
 .fondo-bienvenida {
@@ -159,5 +169,37 @@
     max-height: 50%; /* Evita que se distorsione si la pantalla es muy pequeña */
     object-fit: contain; /* Mantiene la proporción del logo */
   }
+
+  ion-footer {
+    --ion-background-color: white;
+    --background: white;
+  }
+  ion-toolbar {
+    --ion-background-color: white;
+    --background: white;
+  }
+
+  .datosPerfil {
+    background-color: rgb(196, 196, 196);
+    --ion-card-background:  rgb(196, 196, 196);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .datosPerfil ion-item {
+    --background: rgb(196, 196, 196); /* Fondo blanco para cada item */
+    --ion-item-background: rgb(196, 196, 196);
+    border-radius: 8px; /* Opcional: bordes suaves en los items */
+    margin-bottom: 8px; /* Opcional: separación entre items */
+  }
+
+  .datosPerfil ion-label {
+    color: black !important; /* Asegura que la letra sea negra */
+    font-weight: 500; /* Opcional: hace el texto más legible */
+  }
+
+  .datosPerfil ion-card-title {
+    color: black; /* Cambia el color a negro */
+}
 
 

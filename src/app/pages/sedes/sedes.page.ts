@@ -18,6 +18,7 @@ export class SedesPage implements OnInit {
     this.verSedes();
   }
 
+  // Obtención de sedes desde API
   async verSedes() {
     this.listaSedes = [];
     let datos = this.api.obtencionSedes();
@@ -36,10 +37,12 @@ export class SedesPage implements OnInit {
     }
   }
 
+  // Navegación a página principal
   irPrincipal() {
     this.router.navigate(['principal'], { replaceUrl: true })
   }
 
+  // Navegación a perfil
   irPerfil() {
     this.router.navigate(['profile'], { replaceUrl: true })
   }

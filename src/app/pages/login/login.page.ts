@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
     console.log("PLF: Login")
   }
 
+  // Función para login desde API
   async login() {
     try {
       // Login API
