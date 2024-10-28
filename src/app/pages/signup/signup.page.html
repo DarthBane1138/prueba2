@@ -14,27 +14,43 @@
     <ion-input [(ngModel)]="mdl_correo" label="Correo:" labelPlacement="floating" placeholder="Ingresa tu correo" class="label"></ion-input>
   </ion-item>
   <!-- Input Contraseña -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
-    <ion-input  [(ngModel)]="mdl_contrasena" label="Contraseña:" labelPlacement="floating" placeholder="Ingresa la contraseña" class="label"></ion-input>
-  </ion-item>
-  <!-- Input Confirmar Contraseña -->
-  <!--<ion-item lines="inset" class="ion-margin-top inputR custom-line">
-    <ion-input [(ngModel)]="mdl_contrasena_conf" label="Confirmar Contraseña:" labelPlacement="floating" placeholder="Confirma tu contraseña" class="label"></ion-input>
-  </ion-item>-->
-  <!-- Input Nombre -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
-    <ion-input [(ngModel)]="mdl_nombre" label="Nombre:" labelPlacement="floating" placeholder="Ingresa tu Nombre" class="label"></ion-input>
-  </ion-item>
-  <!-- Input Apellido -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
-    <ion-input [(ngModel)]="mdl_apellido" label="Apellido:" labelPlacement="floating" placeholder="Ingresa tu Apellido" class="label"></ion-input>
-  </ion-item>
-  <!-- Input Confirmar Contraseña -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
-    <ion-input [(ngModel)]="mdl_carrera" label="Carrera:" labelPlacement="floating" placeholder="Ingresa tu Carrera" class="label"></ion-input>
-  </ion-item>
-  
-  
+<ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-input [(ngModel)]="mdl_contrasena" label="Contraseña:" labelPlacement="floating" placeholder="Ingresa la contraseña" class="label"></ion-input>
+</ion-item>
+<!-- Input Confirmar Contraseña -->
+<!-- <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-input [(ngModel)]="mdl_contrasena_conf" label="Confirmar Contraseña:" labelPlacement="floating" placeholder="Confirma tu contraseña" class="label"></ion-input>
+</ion-item> -->
+<!-- Input Nombre -->
+<ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-input [(ngModel)]="mdl_nombre" label="Nombre:" labelPlacement="floating" placeholder="Ingresa tu Nombre" class="label"></ion-input>
+</ion-item>
+<!-- Input Apellido -->
+<ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-input [(ngModel)]="mdl_apellido" label="Apellido:" labelPlacement="floating" placeholder="Ingresa tu Apellido" class="label"></ion-input>
+</ion-item>
+<!-- Options Escuela -->
+<ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-label>Escuela:</ion-label>
+  <ion-select [(ngModel)]="mdl_escuela" (ionChange)="opEscuela()" placeholder="Selecciona tu escuela">
+    <ion-select-option value="Administracion y Negocios">Administracion y Negocios</ion-select-option>
+    <ion-select-option value="Comunicacion">Comunicacion</ion-select-option>
+    <ion-select-option value="Construccion">Construccion</ion-select-option>
+    <ion-select-option value="Diseño">Diseño</ion-select-option>
+    <ion-select-option value="Gastronomia">Gastronomia</ion-select-option>
+    <ion-select-option value="Informatica y Telecomunicaciones">Informatica y Telecomunicaciones</ion-select-option>
+    <ion-select-option value="Ingenieria y Recursos Naturales">Ingenieria y Recursos Naturales</ion-select-option>
+    <ion-select-option value="Salud">Salud</ion-select-option>
+    <ion-select-option value="Turismo y Hospitalidad">Turismo y Hospitalidad</ion-select-option>
+  </ion-select>
+</ion-item>
+<!-- Options Carrera -->
+<ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-label>Carrera:</ion-label>
+  <ion-select [(ngModel)]="mdl_carrera" placeholder="Selecciona tu carrera">
+    <ion-select-option *ngFor="let carrera of carrerasDispo" [value]="carrera">{{ carrera }}</ion-select-option>
+  </ion-select>
+</ion-item>
   <!-- Input Sede -->
   <ion-item class="ion-margin-top inputR">
     <ion-label>Sede:</ion-label>
@@ -59,7 +75,7 @@
   </ion-button>
   <!-- Mensaje -->
   <ion-item *ngIf="v_visible" color="warning" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
-  <!-- Botón para volvver al inicio -->
+  <!-- Botón para volver al inicio -->
   <p style="font-size: small" (click)="inicio()" class="ion-margin-top text-container ion-text-center titulo">
     Volver a Inicio
   </p>

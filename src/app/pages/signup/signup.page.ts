@@ -17,15 +17,35 @@ export class SignupPage implements OnInit {
   mdl_nombre: string = '';
   mdl_apellido: string = '';
   mdl_carrera: string = '';
+  mdl_escuela: string = ''; //
   mdl_sede: string = '';
   v_visible = false;
   v_mensaje: string = '';
   isAlertOpen = false;
   alertButtons = ['OK'];
 
+  //Lista de carreras filtradas por escuela
+  carreras: { [key: string]: string[] } = {
+    'Administracion y Negocios': ['Técnico En Operaciones Logísticas', 'Administración Pública', 'Técnico En Gestión Logística', 'Técnico En Comercio Exterior', 'Ingeniería En Comercio Exterior', 'Técnico En Administración', 'Ingeniería En Gestión Logística', 'Ingeniería En Marketing Digital', 'Auditoría', 'Administración De Empresas', 'Contabilidad Tributaria', 'Ingeniería En Administración Mención Finanzas', 'Ingeniería En Administración Mención Innovación Y Emprendimiento'],
+    'Comunicacion': ['Relaciones Públicas Y Comunicación Organizacional', 'Publicidad', 'Ingeniería En Sonido', 'Comunicación Audiovisual', 'Animación Digital', 'Tecnología En Sonido E Iluminación', 'Técnico Audiovisual', 'Actuación'],
+    'Construccion': ['Técnico En Prevención De Riesgos Laborales', 'Ingeniería En Prevención De Riesgos', 'Ingeniería En Construcción', 'Restauración De Bienes Patrimoniales', 'Técnico Tipógrafo Geomático', 'Técnico En Construcción', 'Técnico En Instalaciones Y Proyectos Eléctricos', 'Dibujo Y Modelamiento Arquitectónico Y Estructural', 'Técnico En Prevención De Riesgos'],
+    'Diseño': ['Diseño Gráfico', 'Diseño Industrial', 'Diseño De Vestuario', 'Diseño De Ambientes', 'Ilustración', 'Desarrollo Y Diseño Web'],
+    'Gastronomia': ['Gastronomia', 'Gastronomia Internacional'],
+    'Informatica y Telecomunicaciones': ['Ingeniería En Informática', 'Técnico En Redes Y Telecomunicaciones', 'Ingeniería En Redes Y Telecomunicaciones', 'Desarrollo De Aplicaciones', 'Ingeniería En Infraestructura Tecnológica', 'Analista Programador', 'Analista Programador Computacional', 'Ingeniería En Desarrollo De Software'],
+    'Ingenieria y Recursos Naturales': ['Técnico en Operación y Supervisión de Procesos Mineros', 'Ingeniería en Mantenimiento Industrial', 'Técnico en Control y Monitoreo Remoto de Procesos Mineros', 'Técnico Veterinario y Pecuario', 'Técnico en Maquinaria y Vehículos Pesados', 'Técnico en Geología', 'Técnico en Electricidad y Automatización Industrial', 'Técnico en Calidad de Alimentos', 'Ingeniería en Medio Ambiente', 'Ingeniería en Mecánica Automotriz y Autotrónica', 'Ingeniería en Maquinaria y Vehículos Pesados', 'Ingeniería en Electricidad y Automatización Industrial', 'Ingeniería Agrícola', 'Técnico Agrícola', 'Técnico en Mantenimiento Industrial' ],
+    'Salud': ['Técnico de Radiodiagnóstico y Radioterapia', 'Técnico en Química y Farmacia', 'Informática Biomédica', 'Técnico de Laboratorio Clínico y Banco de Sangre', 'Técnico en Odontología', 'Técnico de Enfermería', 'Preparador Físico'],
+    'Turismo y Hospitalidad': ['Tecnico en Turismo y Hospitalidad', 'Administración en Turismo y Hospitalidad Mención Gestión de Destinos Turísticos', 'Administración en Turismo y Hospitalidad Mención Hospitality Management', 'Administración en Turismo y Hospitalidad Mención Gestión para el Ecoturismo', 'Administración en Turismo y Hospitalidad Mención Administración Hotelera']
+  };
+  carrerasDispo: string[] = []; //carga de carreras
+
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
   ngOnInit() {
+  }
+
+  //Funcion para devolver la carrera seleccionada segun su escuela
+  opEscuela() {
+    this.carrerasDispo = this.carreras[this.mdl_escuela] || []; //una carrera disponible o una lista vacia
   }
 
   // Redirección a página de inicio
