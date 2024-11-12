@@ -21,10 +21,10 @@
     <img class="logo-title" src="../../../assets/img/Logo_DuocUC.svg.png" alt="Logo" style="height: 50px;">
    </div>
    <!-- Bienvenida a usuario -->
-    <h1 class="profile-title">¡¡ Bienvenido {{ nombre }} !!</h1>
+    <h1 class="profile-title">¡¡ Bienvenido/a {{ nombre }} !!</h1>
     <!-- Card para mostrar sede de usuario -->
      <ion-card class="card-principal">
-      <img alt="Silhouette of mountains" src="{{ sedeApiImagen }}">
+      <img alt="imagen de una sede de DuocUc" src="{{ sedeApiImagen }}">
       <ion-card-header>
         <ion-card-subtitle> Estas Matriculado en</ion-card-subtitle>
         <ion-card-title> {{ sedeApiNombre }} </ion-card-title>
@@ -52,21 +52,4 @@
 </ion-content>
 
 <!-- Tab bar/barra de navegacion -->
-<ion-footer>
-  <ion-toolbar>
-    <div class="footer-icons">
-      <ion-tab-button>
-        <ion-icon name="qr-code"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="business-outline" (click)="irSedes()"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="home"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="person" (click)="irPerfil()"></ion-icon>
-      </ion-tab-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
+<app-nav-bar></app-nav-bar>

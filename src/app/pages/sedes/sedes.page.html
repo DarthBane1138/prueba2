@@ -9,7 +9,7 @@
   <h1 class="profile-title">Estas son nuestras sedes a lo largo de la región metropolitana</h1>
   <ion-item *ngFor="let sede of listaSedes" class="bkgrnd">
     <ion-card>
-      <img alt="Silhouette of mountains" src="{{ sede.imagen }}" />
+      <img alt="Institucion de DuocUc" src="{{ sede.imagen }}" />
       <ion-card-header>
         <ion-card-title>{{ sede.nombre }}</ion-card-title>
         <ion-card-subtitle>{{ sede.direccion }}</ion-card-subtitle>
@@ -24,21 +24,4 @@
 </ion-content>
 
 <!-- Tab bar/barra de navegacion -->
-<ion-footer>
-  <ion-toolbar>
-    <div class="footer-icons">
-      <ion-tab-button>
-        <ion-icon name="qr-code"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="business-outline"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="home" (click)="irPrincipal()"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="person" (click)="irPerfil()"></ion-icon>
-      </ion-tab-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
+ <app-nav-bar></app-nav-bar>

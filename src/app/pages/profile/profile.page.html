@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="toolbar">
     <ion-title>Perfil</ion-title>
+    <ion-back-button slot="start" defaultHref="/principal"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
@@ -47,21 +48,4 @@
 </ion-content>
 
 <!-- Tab bar/barra de navegacion -->
-<ion-footer>
-  <ion-toolbar>
-    <div class="footer-icons">
-      <ion-tab-button>
-        <ion-icon name="qr-code"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="business-outline" (click)="irSedes()"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="home" (click)="irHome()"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="person"></ion-icon>
-      </ion-tab-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
+ <app-nav-bar></app-nav-bar>

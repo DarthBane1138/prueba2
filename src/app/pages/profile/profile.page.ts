@@ -124,14 +124,4 @@ export class ProfilePage implements OnInit {
       console.log("PLF: No se encontró una sede con ese nombre.");
     }
   }
-
-  // Navegación a sedes
-  irSedes() {
-    this.router.navigate(['sedes'], { replaceUrl: true })
-  }
-
-  // Navegación a página principal
-  irHome(){
-    this.router.navigate(['principal'], { replaceUrl: true })
-  }
 }

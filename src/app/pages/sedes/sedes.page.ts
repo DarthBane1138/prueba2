@@ -36,15 +36,4 @@ export class SedesPage implements OnInit {
       this.listaSedes.push(sede);
     }
   }
-
-  // Navegación a página principal
-  irPrincipal() {
-    this.router.navigate(['principal'], { replaceUrl: true })
-  }
-
-  // Navegación a perfil
-  irPerfil() {
-    this.router.navigate(['profile'], { replaceUrl: true })
-  }
-
 }

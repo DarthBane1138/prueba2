@@ -160,21 +160,10 @@ export class PrincipalPage implements OnInit {
     this.router.navigate(['login'], { replaceUrl: true })
   }
 
-  // Navegación a Perfil
-  irPerfil() {
-    this.router.navigate(['profile'], { replaceUrl: true })
-  }
-
   // Navegación a página de cambio de contraseña
   navegarCambiarContrasena() {
     this.router.navigate(['cambiar-contrasena'], { replaceUrl: true })
   }
-
-  // Navegación a página de sedes
-  irSedes() {
-    this.router.navigate(['sedes'], { replaceUrl: true })
-  }
-
 
   // Navegación para actualizar sede
   irActualizarSede() {
