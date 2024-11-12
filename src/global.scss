@@ -95,7 +95,7 @@
 }
 
 .bar {
-    padding: 10px 0; /* Asegúrate de que sea suficiente para contener el contenido */
+    padding: 10px 0;
 }
 
 .logo {
@@ -128,7 +128,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Asegura que ocupe toda la pantalla */
+    height: 100%;
     --background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(27, 23, 73) 74%, rgb(40, 38, 155) 100%);
   }
 
@@ -137,13 +137,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    width: 100%;
   }
   
   .logo-bienvenida {
-    max-width: 70%; /* Ajusta el tamaño del logo */
-    max-height: 50%; /* Evita que se distorsione si la pantalla es muy pequeña */
-    object-fit: contain; /* Mantiene la proporción del logo */
+    max-width: 70%;
+    max-height: 50%;
+    object-fit: contain;
   }
 
   ion-footer {
@@ -163,19 +163,19 @@
   }
 
   .datosPerfil ion-item {
-    --background: rgb(196, 196, 196); /* Fondo blanco para cada item */
+    --background: rgb(196, 196, 196);
     --ion-item-background: rgb(196, 196, 196);
-    border-radius: 8px; /* Opcional: bordes suaves en los items */
-    margin-bottom: 8px; /* Opcional: separación entre items */
+    border-radius: 8px;
+    margin-bottom: 8px;
   }
 
   .datosPerfil ion-label {
-    color: black !important; /* Asegura que la letra sea negra */
-    font-weight: 500; /* Opcional: hace el texto más legible */
+    color: black !important;
+    font-weight: 500; 
   }
 
   .datosPerfil ion-card-title {
-    color: black; /* Cambia el color a negro */
+    color: black;
 }
 
 

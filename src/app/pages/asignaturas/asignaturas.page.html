@@ -5,12 +5,39 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">asignaturas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding-top">
+  <ion-card>
+    <img src="../../../assets/img/importancia-de-las-apps-moviles-en-una-organizacion.jpg" alt="Imagen de la asignatura">
+    <ion-card-header>
+      <ion-card-title>{{ curso_sigla }} - {{ curso_nombre }}</ion-card-title>
+      <h6>Fecha inicio: {{ fechaClase }}</h6>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ (porcentajeAsistencia * 100)}}% de asistencia registrada</p>
+      <!--barra de progresion-->
+      <ion-progress-bar [value]="porcentajeAsistencia" [color]="colorBarra"></ion-progress-bar>
+      <p>Asistencia: {{ asistenciaActual }} de {{ totalClases }}</p>
+      <!--muestra de asistencias-->
+      <ion-list>
+        <ion-item *ngFor="let clase of asistencias | slice: 0:2">
+          <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'Presente' : 'Ausente' }}</strong></p>
+        </ion-item>
+      </ion-list>
+      <!--listado de asistencia total-->
+      <ion-list *ngIf="mostrarTodo">
+        <ion-item *ngFor="let clase of asistencias | slice: 2">
+          <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'presente' : 'ausente' }}</strong></p>
+        </ion-item>
+      </ion-list>
+      <ion-button *ngIf="!mostrarTodo" (click)="verMas()" fill="clear" class="btnVer">
+        <ion-icon slot="icon-only" name="caret-down-outline" color="medium"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="mostrarTodo" (click)="verMenos()" fill="clear" class="btnVer">
+        <ion-icon slot="icon-only" name="caret-up-outline" color="medium"></ion-icon>
+      </ion-button>      
+      <ion-button expand="block" (click)="escanearQR()">Escanear QR</ion-button>
+    </ion-card-content>
+  </ion-card>  
 </ion-content>
 <!--Navbar-->
 <app-nav-bar></app-nav-bar>
