@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning'; //SCANNER plugin
 
 @Component({
   selector: 'app-asignaturas',
@@ -14,6 +15,7 @@ export class AsignaturasPage implements OnInit {
   totalClases: number = 10;
 
   mostrarTodo: boolean = false;
+  txt: string = ""; //para el scanner
 
   //estado de asistencia, ausente o presente
   asistencias = [
@@ -27,7 +29,6 @@ export class AsignaturasPage implements OnInit {
     return this.asistenciaActual / this.totalClases;
   }
 
-
   //barra de progresion
   get colorBarra() {
     return this.porcentajeAsistencia <= 0.5
@@ -39,16 +40,22 @@ export class AsignaturasPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
+    return;
   }
+  //Funcion del SCANNER
+  async escanearQR(){
+    let resultado = await BarcodeScanner.scan(); //a este resultado se le saca el texto para pasarlo al txt
+    if(resultado.barcodes.length>0){ //si se captura al menos 1 codigo
+      this.txt = resultado.barcodes[0].displayValue;
+      console.log(this.txt)
+    }
+  }//añadidos los permisos en android>app>src>main>AndroidManifest.xml
 
-  escanearQR() {
-    console.log("funcionando");
-  }
-
+  //Botones de despliegue en registro de clases
   verMas() {
     this.mostrarTodo = true;
   }
-
   verMenos() {
     this.mostrarTodo = false;
   }
