@@ -29,15 +29,23 @@
           <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'presente' : 'ausente' }}</strong></p>
         </ion-item>
       </ion-list>
+      <!--botones de despliegue-->
       <ion-button *ngIf="!mostrarTodo" (click)="verMas()" fill="clear" class="btnVer">
         <ion-icon slot="icon-only" name="caret-down-outline" color="medium"></ion-icon>
       </ion-button>
       <ion-button *ngIf="mostrarTodo" (click)="verMenos()" fill="clear" class="btnVer">
         <ion-icon slot="icon-only" name="caret-up-outline" color="medium"></ion-icon>
-      </ion-button>      
-      <ion-button expand="block" (click)="escanearQR()">Escanear QR</ion-button>
+      </ion-button>
+      <!--lista de codigos-->
+      <ion-list>
+        <ion-item *ngFor="let barcode of barcodes">
+          <ion-label position="stacked">{{ barcode.format }}</ion-label>
+          <ion-input type="text" [value]="barcode.rawValue"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
     </ion-card-content>
-  </ion-card>  
+  </ion-card> 
 </ion-content>
 <!--Navbar-->
 <app-nav-bar></app-nav-bar>
