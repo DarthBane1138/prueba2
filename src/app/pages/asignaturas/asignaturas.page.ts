@@ -53,6 +53,7 @@ export class AsignaturasPage implements OnInit {
     BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
     return;
   }
+  //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)
   //1) Funcion del SCANNER basico enseñado por el profe
   async escanearQR(){
     let resultado = await BarcodeScanner.scan(); //a este resultado se le saca el texto para pasarlo al txt
