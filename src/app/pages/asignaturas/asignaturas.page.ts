@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning'; //SCANNER plugin
 import { AlertController } from '@ionic/angular';
+import { lastValueFrom } from 'rxjs';
+import { ApisService } from 'src/app/services/apis.service';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-asignaturas',
@@ -8,30 +11,64 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./asignaturas.page.scss'],
 })
 export class AsignaturasPage implements OnInit {
+
+  asistencias: any [] = [];
   //variables para el qr opcion 2
   isSupported = false;
   barcodes: Barcode[] = []; //lista para codigos
   //variables para la api
-  curso_sigla: string = 'PGY4121';
-  curso_nombre: string = 'Programacion Movil';
-  fechaClase: string = '11/11/2024';
+  curso_sigla: string = '';
+  curso_nombre: string = '';
+  //fechaClase: string = '11/11/2024';
   asistenciaActual: number = 4;
   totalClases: number = 10;
-   //para botones de despliegue
+  //para botones de despliegue
   mostrarTodo: boolean = false;
   //para el scanner 1)
   txt: string = "";
+  // Variables BD
+  correo: string = '';
+  porcentajeAsistencia: number = 0;
+  
+  constructor(private alertController: AlertController, private db: DbService, private api: ApisService) { }
 
-  //estado de asistencia ausente o presente, esquema ejemplo
-  asistencias = [
-    { fecha: '11/11/2024', estado: true },
-    { fecha: '23/11/2024', estado: false },
-    { fecha: '28/11/2024', estado: true },
-  ];
+  ngOnInit() {
+    console.log("PLF: Asistencia")
+    //this.db.obtenerSesion().then(data => {
+      //this.correo = data.correo;
+      console.log("PLF: Perfil Correo: " + this.correo)
+      this.infoAsistencia();
+    //})
 
-  //calculo delporcentaje de asistencia, ejemplo
-  get porcentajeAsistencia() {
-    return this.asistenciaActual / this.totalClases;
+    //2)
+    BarcodeScanner.isSupported().then((result) => {
+      this.isSupported = result.supported;
+    });
+    //1)
+    BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
+    return;
+
+  }
+
+  // Función para obtener asistencia desde API
+  async infoAsistencia() {
+    this.asistencias = [];
+    let datos = this.api.obtenerAsistencia(this.correo)
+    let respuesta = await lastValueFrom(datos);
+    let json_texto = JSON.stringify(respuesta);
+    let json = JSON.parse(json_texto);
+    console.log("PLF: Estructura de json[0]:", JSON.stringify(json[0], null, 2));
+    for(let x=0; x< json[0].length; x++) {
+      let asistencia: any = {}
+      asistencia.curso_sigla = json[0][x].curso_sigla;
+      asistencia.curso_nombre = json[0][x].curso_nombre;
+      asistencia.presente = json[0][x].presente;
+      asistencia.ausente = json[0][x].ausente;
+      this.porcentajeAsistencia = (asistencia.presente/(asistencia.presente+asistencia.ausente))*100
+      console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
+      console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
+      this.asistencias.push(asistencia);
+    }
   }
 
   //barra de progresion, esquema ejemplo
@@ -42,17 +79,7 @@ export class AsignaturasPage implements OnInit {
       ? 'warning'
       : 'success'; //> 0.7 then
   }
-  constructor(private alertController: AlertController) { }
 
-  ngOnInit() {
-    //2)
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
-    //1)
-    BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
-    return;
-  }
   //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)
   //1) Funcion del SCANNER basico enseñado por el profe
   async escanearQR(){

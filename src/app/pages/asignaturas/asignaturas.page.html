@@ -6,46 +6,50 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-top bkgrnd">
-  <ion-card>
-    <img src="../../../assets/img/importancia-de-las-apps-moviles-en-una-organizacion.jpg" alt="Imagen de la asignatura">
-    <ion-card-header>
-      <ion-card-title>{{ curso_sigla }} - {{ curso_nombre }}</ion-card-title>
-      <h6>Fecha inicio: {{ fechaClase }}</h6>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ (porcentajeAsistencia * 100)}}% de asistencia registrada</p>
-      <!--barra de progresion-->
-      <ion-progress-bar [value]="porcentajeAsistencia" [color]="colorBarra"></ion-progress-bar>
-      <p>Asistencia: {{ asistenciaActual }} de {{ totalClases }}</p>
-      <!--muestra de asistencias-->
-      <ion-list>
-        <ion-item *ngFor="let clase of asistencias | slice: 0:2">
-          <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'Presente' : 'Ausente' }}</strong></p>
-        </ion-item>
-      </ion-list>
-      <!--listado de asistencia total-->
-      <ion-list *ngIf="mostrarTodo">
-        <ion-item *ngFor="let clase of asistencias | slice: 2">
-          <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'presente' : 'ausente' }}</strong></p>
-        </ion-item>
-      </ion-list>
-      <!--botones de despliegue-->
-      <ion-button *ngIf="!mostrarTodo" (click)="verMas()" fill="clear" class="btnVer">
-        <ion-icon slot="icon-only" name="caret-down-outline" color="medium"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="mostrarTodo" (click)="verMenos()" fill="clear" class="btnVer">
-        <ion-icon slot="icon-only" name="caret-up-outline" color="medium"></ion-icon>
-      </ion-button>
-      <!--lista de codigos-->
-      <ion-list>
-        <ion-item *ngFor="let barcode of barcodes">
-          <ion-label position="stacked">{{ barcode.format }}</ion-label>
-          <ion-input type="text" [value]="barcode.rawValue"></ion-input>
-        </ion-item>
-      </ion-list>
-      <ion-button expand="block" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
-    </ion-card-content>
-  </ion-card> 
+  <ion-button expand="block" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
+  <ion-item *ngFor="let asistencia of asistencias" class="bkgrnd">
+    <ion-card>
+      <img src="../../../assets/img/importancia-de-las-apps-moviles-en-una-organizacion.jpg" alt="Imagen de la asignatura">
+      <ion-card-header>
+        <ion-card-title>{{ asistencia.curso_sigla }} - {{ asistencia.curso_nombre }}</ion-card-title>
+      <!--<h6>Fecha inicio: {{ fechaClase }}</h6> -->
+      </ion-card-header>
+      <ion-card-content>
+        <p class="presente"> Clases Presente: {{ asistencia.presente }}</p>
+        <p class="ausente"> Clases Ausente: {{ asistencia.ausente }} </p>
+        <p>{{ porcentajeAsistencia }}% de asistencia registrada</p>
+        <!--barra de progresion-->
+        <ion-progress-bar [value]="porcentajeAsistencia" [color]="colorBarra"></ion-progress-bar>
+        <p>Asistencia: {{ asistencia.presente }} de {{ asistencia.presente + asistencia.ausente }}</p>
+        <!--muestra de asistencias-->
+      <!--<ion-list>
+          <ion-item *ngFor="let clase of asistencias | slice: 0:2">
+            <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'Presente' : 'Ausente' }}</strong></p>
+          </ion-item>
+        </ion-list>-->
+        <!--listado de asistencia total-->
+        <ion-list *ngIf="mostrarTodo">
+          <ion-item *ngFor="let clase of asistencias | slice: 2">
+            <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'presente' : 'ausente' }}</strong></p>
+          </ion-item>
+        </ion-list>
+        <!--botones de despliegue-->
+        <!--<ion-button *ngIf="!mostrarTodo" (click)="verMas()" fill="clear" class="btnVer">
+          <ion-icon slot="icon-only" name="caret-down-outline" color="medium"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="mostrarTodo" (click)="verMenos()" fill="clear" class="btnVer">
+          <ion-icon slot="icon-only" name="caret-up-outline" color="medium"></ion-icon>
+        </ion-button>-->
+        <!--lista de codigos-->
+        <ion-list>
+          <ion-item *ngFor="let barcode of barcodes">
+            <ion-label position="stacked">{{ barcode.format }}</ion-label>
+            <ion-input type="text" [value]="barcode.rawValue"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card> 
+  </ion-item>
 </ion-content>
 <!--Navbar-->
 <app-nav-bar></app-nav-bar>

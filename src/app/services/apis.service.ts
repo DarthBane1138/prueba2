@@ -42,4 +42,17 @@ export class ApisService {
     return this.http.patch(this.ruta + "/api_duoc/usuario/usuario_modificar", objeto).pipe()
   }
 
+  marcarAsistencia(sigla: string, correo: string, fecha: string) {
+    let objeto: any = {};
+    objeto.sigla = sigla;
+    objeto.correo = correo;
+    objeto.fecha = fecha;
+
+    return this.http.post(this.ruta + "/api_duoc/usuario/marcar_asistencia", objeto).pipe()
+  }
+
+  obtenerAsistencia(correo: string) {
+    return this.http.get(this.ruta + "/api_duoc/usuario/asistencia_obtener?correo=" + correo).pipe()
+  }
+
 }
