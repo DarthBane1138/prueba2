@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
 import { ApisService } from 'src/app/services/apis.service';
 import { DbService } from 'src/app/services/db.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-asignaturas',
@@ -35,7 +36,7 @@ export class AsignaturasPage implements OnInit {
   fechaClase: string = '';
   contrasena: string = '';
   
-  constructor(private alertController: AlertController, private db: DbService, private api: ApisService) { }
+  constructor(private alertController: AlertController, private db: DbService, private api: ApisService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
 
@@ -43,10 +44,10 @@ export class AsignaturasPage implements OnInit {
     this.correo = data.correo;
     this.contrasena = data.contrasena;
 
+    this.infoAsistencia();
+
     console.log("PLF: Asistencia")
     console.log("PLF: Perfil Correo: " + this.correo)
-    this.infoAsistencia();
-    //})
 
     //2)
     BarcodeScanner.isSupported().then((result) => {
@@ -72,20 +73,26 @@ export class AsignaturasPage implements OnInit {
       asistencia.curso_nombre = json[0][x].curso_nombre;
       asistencia.presente = json[0][x].presente;
       asistencia.ausente = json[0][x].ausente;
-      this.porcentajeAsistencia = (asistencia.presente/(asistencia.presente+asistencia.ausente))*100
+      asistencia.porcentajeAsistencia = (asistencia.presente/(asistencia.presente+asistencia.ausente))*100
       console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
       console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
+      console.log("PLF: Porcentaje de Asistencia: " + this.porcentajeAsistencia)
       this.asistencias.push(asistencia);
     }
+    this.porcentajeAsistencia = this.asistencias[0]?.porcentajeAsistencia || 0;
+    this.cdr.detectChanges(); // Forzar renderización
   }
 
   //barra de progresion, esquema ejemplo
-  get colorBarra() {
-    return this.porcentajeAsistencia <= 0.5
-      ? 'danger'
-      : this.porcentajeAsistencia < 0.7
-      ? 'warning'
-     : 'success'; //> 0.7 then
+  getColorBarra(porcAsistencia: number): string {
+    //const porcentajeAsistencia = presente / (presente + ausente) * 100;
+    if (porcAsistencia <= 50) {
+      return 'danger';
+    } else if (porcAsistencia < 70) {
+      return 'warning';
+    } else {
+      return 'success';
+    }
   }
 
   //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)

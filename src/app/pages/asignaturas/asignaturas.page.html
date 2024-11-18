@@ -17,9 +17,9 @@
       <ion-card-content>
         <p class="presente"> Clases Presente: {{ asistencia.presente }}</p>
         <p class="ausente"> Clases Ausente: {{ asistencia.ausente }} </p>
-        <p>{{ porcentajeAsistencia }}% de asistencia registrada</p>
+        <p>{{ asistencia.porcentajeAsistencia }}% de asistencia registrada</p>
         <!--barra de progresion-->
-        <ion-progress-bar [value]="porcentajeAsistencia" [color]="colorBarra"></ion-progress-bar>
+        <ion-progress-bar [value]="asistencia.porcentajeAsistencia/100" [color]="getColorBarra(asistencia.porcentajeAsistencia)"></ion-progress-bar>
         <p>Asistencia: {{ asistencia.presente }} de {{ asistencia.presente + asistencia.ausente }}</p>
         <!--muestra de asistencias-->
       <!--<ion-list>
