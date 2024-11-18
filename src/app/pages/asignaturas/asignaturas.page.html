@@ -50,6 +50,13 @@
       </ion-card-content>
     </ion-card> 
   </ion-item>
+
+  <ion-alert
+  [isOpen]="isAlertOpen"
+  [header]="v_mensaje"
+  [buttons]="alertButtons"
+  cssClass = "custom-alert-message"
+></ion-alert>
 </ion-content>
 <!--Navbar-->
 <app-nav-bar></app-nav-bar>

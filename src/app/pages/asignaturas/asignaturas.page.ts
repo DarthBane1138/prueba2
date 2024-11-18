@@ -35,6 +35,9 @@ export class AsignaturasPage implements OnInit {
   nombreClase: string = '';
   fechaClase: string = '';
   contrasena: string = '';
+  isAlertOpen = false;
+  v_mensaje: string = '';
+  alertButtons = ['OK'];
   
   constructor(private alertController: AlertController, private db: DbService, private api: ApisService, private cdr: ChangeDetectorRef) { }
 
@@ -131,13 +134,13 @@ export class AsignaturasPage implements OnInit {
         let respuesta = await lastValueFrom(datos);
         let json_texto = JSON.stringify(respuesta);
         let json = JSON.parse(json_texto);
-        if (json.status == "success") {
-          console.log("PLF: " + json.message);
+        console.log("PLF: " + json.message);
+        this.v_mensaje = json.message;
+        this.isAlertOpen = true;
+        setTimeout(() => {
+          this.isAlertOpen = false;
           window.location.reload(); // Recarga completa
-        } else {
-          console.log("PLF: Error al registrar asistencia");
-          console.log("PLF mensaje: " + json.message);
-        }
+        }, 3000)
       }
       // Esto se podría usar para registrar la asistencia en la base de datos local
       // const { barcodes } = await BarcodeScanner.scan();
