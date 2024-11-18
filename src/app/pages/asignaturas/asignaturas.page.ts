@@ -29,15 +29,23 @@ export class AsignaturasPage implements OnInit {
   // Variables BD
   correo: string = '';
   porcentajeAsistencia: number = 0;
+  texto: string = '';
+  codigoClase: string = '';
+  nombreClase: string = '';
+  fechaClase: string = '';
+  contrasena: string = '';
   
   constructor(private alertController: AlertController, private db: DbService, private api: ApisService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    const data = await this.db.obtenerSesion();
+    this.correo = data.correo;
+    this.contrasena = data.contrasena;
+
     console.log("PLF: Asistencia")
-    //this.db.obtenerSesion().then(data => {
-      //this.correo = data.correo;
-      console.log("PLF: Perfil Correo: " + this.correo)
-      this.infoAsistencia();
+    console.log("PLF: Perfil Correo: " + this.correo)
+    this.infoAsistencia();
     //})
 
     //2)
@@ -57,7 +65,7 @@ export class AsignaturasPage implements OnInit {
     let respuesta = await lastValueFrom(datos);
     let json_texto = JSON.stringify(respuesta);
     let json = JSON.parse(json_texto);
-    console.log("PLF: Estructura de json[0]:", JSON.stringify(json[0], null, 2));
+    // console.log("PLF: Estructura de json[0]:", JSON.stringify(json[0], null, 2));
     for(let x=0; x< json[0].length; x++) {
       let asistencia: any = {}
       asistencia.curso_sigla = json[0][x].curso_sigla;
@@ -77,7 +85,7 @@ export class AsignaturasPage implements OnInit {
       ? 'danger'
       : this.porcentajeAsistencia < 0.7
       ? 'warning'
-      : 'success'; //> 0.7 then
+     : 'success'; //> 0.7 then
   }
 
   //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)
@@ -96,10 +104,47 @@ export class AsignaturasPage implements OnInit {
     if (!granted) {
       this.presentAlert();
       return;
+    } else {
+      console.log("PLF: abriendo camara...")
+      let resultado = await BarcodeScanner.scan();
+      if (resultado.barcodes.length > 0) {
+        this.texto = resultado.barcodes[0].displayValue;
+        console.log("PLF, QR: " + this.texto);
+
+        // Se separa el texto en base al carácter "|"
+        const [codigoClase, nombreClase, fechaClase] = this.texto.split("|")
+
+        // Variables a consola
+        // console.log("PLF, QR: Código clase: " + codigoClase);
+        // console.log("PLF, QR: Nombre clase: " + nombreClase);
+        // console.log("PLF, QR: Correo clase: " + this.correo);
+        // console.log("PLF, QR: FechaClase: " + fechaClase);
+        
+        let datos = this.api.marcarAsistencia(codigoClase, this.correo, fechaClase)
+        let respuesta = await lastValueFrom(datos);
+        let json_texto = JSON.stringify(respuesta);
+        let json = JSON.parse(json_texto);
+        if (json.status == "success") {
+          console.log("PLF: " + json.message);
+          window.location.reload(); // Recarga completa
+        } else {
+          console.log("PLF: Error al registrar asistencia");
+          console.log("PLF mensaje: " + json.message);
+        }
+      }
+      // Esto se podría usar para registrar la asistencia en la base de datos local
+      // const { barcodes } = await BarcodeScanner.scan();
+      //this.barcodes.push(...barcodes);
     }
-    const { barcodes } = await BarcodeScanner.scan();
-    this.barcodes.push(...barcodes);
   }
+
+  // async leerQR(){
+  //   let resultado = await BarcodeScanner.scan();
+  //   if (resultado.barcodes.length > 0) {
+  //     this.texto = resultado.barcodes[0].displayValue;
+  //     console.log(this.texto);
+  //   }
+  // }
 
   async requestPermissions(): Promise<boolean> {
     const { camera } = await BarcodeScanner.requestPermissions();
