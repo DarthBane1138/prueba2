@@ -9,7 +9,7 @@
   <ion-button expand="block" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
   <ion-item *ngFor="let asistencia of asistencias" class="bkgrnd">
     <ion-card>
-      <img src="../../../assets/img/importancia-de-las-apps-moviles-en-una-organizacion.jpg" alt="Imagen de la asignatura">
+      <img [src]="asistencia.imagen" alt="imagen de la asignatura">
       <ion-card-header>
         <ion-card-title>{{ asistencia.curso_sigla }} - {{ asistencia.curso_nombre }}</ion-card-title>
       <!--<h6>Fecha inicio: {{ fechaClase }}</h6> -->
