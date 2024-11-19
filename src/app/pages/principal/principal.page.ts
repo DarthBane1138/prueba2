@@ -70,7 +70,7 @@ export class PrincipalPage implements OnInit {
       console.log("PLF: Correo: " + json.usuario.correo)
       console.log("PLF: Nombre: " + json.usuario.nombre)
       console.log("PLF: Apellido: " + json.usuario.apellido)
-      console.log("PLF: Carrea: " + json.usuario.carrera)
+      console.log("PLF: Carrera: " + json.usuario.carrera)
       // Verificación de usuario en Base de Datos
       let usuarioExiste = await this.db.verificarUsuario(this.correo);
       if (usuarioExiste) {
@@ -108,13 +108,13 @@ export class PrincipalPage implements OnInit {
         // Selección de sede con nombre de sede
         this.seleccionarSede();
         // console.log para depuración
-        /*console.log("PLF: Datos rescatados desde Base de Datos:");
+        console.log("PLF: Datos rescatados desde Base de Datos:");
         console.log("PLF: Correo: " + this.correo);
         console.log("PLF: Contraseña : " + this.contrasena);
         console.log("PLF: Nombre: " + this.nombre);
         console.log("PLF: Apellido: " + this.apellido);
         console.log("PLF: Carrera: " + this.carrera);
-        console.log("PLF: Sede: " + this.sedeNombre);*/
+        console.log("PLF: Sede: " + this.sedeNombre);
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
       }

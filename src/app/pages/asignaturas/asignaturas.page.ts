@@ -59,7 +59,6 @@ export class AsignaturasPage implements OnInit {
     //1)
     BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
     return;
-
   }
 
   // Función para obtener asistencia desde API
@@ -77,9 +76,20 @@ export class AsignaturasPage implements OnInit {
       asistencia.presente = json[0][x].presente;
       asistencia.ausente = json[0][x].ausente;
       asistencia.porcentajeAsistencia = (asistencia.presente/(asistencia.presente+asistencia.ausente))*100
+      const datos = await this.db.obtenerAsistencia(this.correo, asistencia.curso_sigla);
+
+      asistencia.fechas = datos.map((clase: any) => {
+        return {
+          fecha: clase.fecha,
+        };
+      });
+
+      this.asistencias.push(asistencia);
+
+      console.log("PLF DATOS: " + JSON.stringify(datos));
       console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
       console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
-      console.log("PLF: Porcentaje de Asistencia: " + this.porcentajeAsistencia)
+      console.log("PLF: Porcentaje de Asistencia: " + asistencia.porcentajeAsistencia)
       this.asistencias.push(asistencia);
     }
     this.porcentajeAsistencia = this.asistencias[0]?.porcentajeAsistencia || 0;
@@ -100,13 +110,13 @@ export class AsignaturasPage implements OnInit {
 
   //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)
   //1) Funcion del SCANNER basico enseñado por el profe
-  async escanearQR(){
-    let resultado = await BarcodeScanner.scan(); //a este resultado se le saca el texto para pasarlo al txt
-    if(resultado.barcodes.length>0){ //si se captura al menos 1 codigo
-      this.txt = resultado.barcodes[0].displayValue;
-      console.log(this.txt)
-    }
-  }
+  // async escanearQR(){
+  //   let resultado = await BarcodeScanner.scan(); //a este resultado se le saca el texto para pasarlo al txt
+  //   if(resultado.barcodes.length>0){ //si se captura al menos 1 codigo
+  //     this.txt = resultado.barcodes[0].displayValue;
+  //     console.log(this.txt)
+  //   }
+  // }
 
   //2) Funcion del SCANNER con permiso en tiempo de ejecucion
   async scan(): Promise<void> {
@@ -115,7 +125,7 @@ export class AsignaturasPage implements OnInit {
       this.presentAlert();
       return;
     } else {
-      console.log("PLF: abriendo camara...")
+      // console.log("PLF: abriendo camara...")
       let resultado = await BarcodeScanner.scan();
       if (resultado.barcodes.length > 0) {
         this.texto = resultado.barcodes[0].displayValue;
@@ -137,6 +147,7 @@ export class AsignaturasPage implements OnInit {
         console.log("PLF: " + json.message);
         this.v_mensaje = json.message;
         this.isAlertOpen = true;
+        this.db.almacenarAsistencia(this.correo, codigoClase, fechaClase);
         setTimeout(() => {
           this.isAlertOpen = false;
           window.location.reload(); // Recarga completa

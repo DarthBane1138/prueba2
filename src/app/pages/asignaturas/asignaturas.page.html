@@ -22,17 +22,14 @@
         <ion-progress-bar [value]="asistencia.porcentajeAsistencia/100" [color]="getColorBarra(asistencia.porcentajeAsistencia)"></ion-progress-bar>
         <p>Asistencia: {{ asistencia.presente }} de {{ asistencia.presente + asistencia.ausente }}</p>
         <!--muestra de asistencias-->
-      <!--<ion-list>
-          <ion-item *ngFor="let clase of asistencias | slice: 0:2">
-            <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'Presente' : 'Ausente' }}</strong></p>
-          </ion-item>
-        </ion-list>-->
         <!--listado de asistencia total-->
-        <ion-list *ngIf="mostrarTodo">
-          <ion-item *ngFor="let clase of asistencias | slice: 2">
-            <p>Clase {{ clase.fecha }} - <strong>{{ clase.estado ? 'presente' : 'ausente' }}</strong></p>
-          </ion-item>
-        </ion-list>
+        <!--<ion-list *ngIf="mostrarTodo">-->
+          <ion-list *ngIf="asistencia.fechas?.length > 0">
+            <p>Clases Registradas en Base de Datos</p>
+            <ion-item *ngFor="let clase of asistencia.fechas">
+              <p>Clase {{ clase.fecha }}</p>
+            </ion-item>
+          </ion-list>
         <!--botones de despliegue-->
         <!--<ion-button *ngIf="!mostrarTodo" (click)="verMas()" fill="clear" class="btnVer">
           <ion-icon slot="icon-only" name="caret-down-outline" color="medium"></ion-icon>

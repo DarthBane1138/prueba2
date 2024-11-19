@@ -40,6 +40,17 @@ export class DbService {
         .catch(e => console.log('PLF: ERROR AL CREAR TABLA SESION: ' + JSON.stringify(e)));
     })
     .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
+
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      db.executeSql('create table if not exists asistencia (correo varchar(30), sigla varchar(30), fecha varchar(30))', [])
+        .then(() => console.log('PLF: TABLA ASISTENCIA CREADA CORRECTAMENTE'))
+        .catch(e => console.log('PLF: ERROR AL CREAR TABLA ASISTENCIA: ' + JSON.stringify(e)));
+    })
+    .catch(e => console.log('PLF: ERROR AL CREAR O ABRIR BASE DE DATOS'));
   }
 
   // Almacenar Usuario
@@ -259,5 +270,63 @@ export class DbService {
     .catch(e => console.log('PLF: ERROR AL INGRESAR A BASE DE DATOS'));
   }
 
+  async almacenarAsistencia(correo: string, sigla: string, fecha: string) {
+    try {
+      const db = await this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+      });
+      // Verificación si ya existe
+      const res = await db.executeSql(
+        'SELECT COUNT(*) AS count FROM asistencia WHERE correo = ? AND sigla = ? AND fecha = ?',
+        [correo, sigla, fecha]
+      );
+
+      const count = res.rows.item(0).count;
+
+      if (count > 0) {
+        // Ya existe
+        console.log('PLF, BD: Registro ya existente, no se inserta');
+      } else {
+        // Se inserta registro
+        await db.executeSql(
+          'INSERT INTO asistencia values (?, ?, ?)', [correo, sigla, fecha]
+        )
+        console.log('PLF: ASISTENCIA ALMACENADA OK');
+      }
+    } catch (e) {
+      console.log('PLF: ERROR AL ALMACENAR ASISTENCIA: ' + JSON.stringify(e));
+    }
+  }
+
+  async obtenerAsistencia(correo: string, sigla: string) {
+    try {
+      const db = await this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+      });
+      // Ejecuta la consulta SQL
+      const resultado = await db.executeSql(
+        'SELECT sigla, fecha FROM asistencia WHERE correo = ? AND sigla = ?',
+        [correo, sigla]
+      );
+      // Procesar los resultados
+      if (resultado.rows.length > 0) {
+        const asistencia = [];
+        for (let i = 0; i < resultado.rows.length; i++) {
+          asistencia.push(resultado.rows.item(i));
+        }
+        console.log('PLF, DB: Asistencia obtenida: ' + JSON.stringify(asistencia));
+        return asistencia; // Devuelve los resultados
+      } else {
+        console.log('PLF, DB: No se encontraron registros');
+        return [];
+      }
+    } catch (e) {
+      console.log('PLF, DB: Error al obtener asistencia' + JSON.stringify(e));
+      throw e; // Lanza el error para que se pueda manejar externamente si es necesario
+    }
+  }
 }
+
 
