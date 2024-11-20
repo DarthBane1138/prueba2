@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    color: white;
     font-weight: bold;
 }
 
@@ -24,7 +23,25 @@
     color: black;
 }
 
-.datosPeril {
-    background-color: white;
-}
+.datosPerfil {
+    background-color: rgb(196, 196, 196);
+    --ion-card-background:  rgb(196, 196, 196);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
 
+  .datosPerfil ion-item {
+    --background: rgb(196, 196, 196);
+    --ion-item-background: rgb(196, 196, 196);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .datosPerfil ion-label {
+    color: black !important;
+    font-weight: 500; 
+  }
+
+  .datosPerfil ion-card-title {
+    color: black;
+}

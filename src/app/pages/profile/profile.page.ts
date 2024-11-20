@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { ApisService } from 'src/app/services/apis.service';
 import { DbService } from 'src/app/services/db.service';
+import { PreferenciaService } from 'src/app/services/preferencia.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
+  paletteToggle = false;
   // Variables desde BD
   correo: string = '';
   nombre: string = '';
@@ -28,7 +29,7 @@ export class ProfilePage implements OnInit {
   sedeApiHorarioAtencion: string = ''; 
   sedeApiImagen: string = ''; 
 
-  constructor(private router: Router, private db: DbService, private api: ApisService) { }
+  constructor(private router: Router, private db: DbService, private api: ApisService, private preferencia: PreferenciaService) { }
 
   ngOnInit() {
     console.log("Perfil")
@@ -37,7 +38,15 @@ export class ProfilePage implements OnInit {
       this.contrasena = data.contrasena;
       console.log("PLF: Perfil Correo: " + this.correo)
       this.infoUsuario()
+      // this.infoUsuarioApi()
+      this.preferencia.isDarkMode$.subscribe(isDark => {
+        this.paletteToggle = isDark;
+      });
     })
+  }
+
+  toggleChange(ev: any) {
+    this.preferencia.toggleDarkMode(); // Llamar al servicio para cambiar el tema
   }
 
   // Obtención de datos desde BD

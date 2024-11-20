@@ -316,7 +316,7 @@ export class DbService {
         for (let i = 0; i < resultado.rows.length; i++) {
           asistencia.push(resultado.rows.item(i));
         }
-        // console.log('PLF, DB: Asistencia obtenida: ' + JSON.stringify(asistencia));
+        console.log('PLF, DB: Asistencia obtenida: ' + JSON.stringify(asistencia));
         return asistencia; // Devuelve los resultados
       } else {
         console.log('PLF, DB: No se encontraron registros');

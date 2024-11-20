@@ -33,8 +33,16 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+@import "@ionic/angular/css/palettes/dark.class.css";
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;     
+  height: 100%;
+}
 
 .fondo{
     --background: #0B253E;
@@ -44,15 +52,7 @@
     --highlight-color: #15af01;
 }
 
-.input{
-    --background:#ffffff;
-    --color: #0B253E;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 5px;
-    width: 85%;
-    border: 1px solid transparent;
-}
+
 
 //login y registro
 .btn{
@@ -70,11 +70,6 @@
     color: grey;
 }
 
-.signup-button {
-    color: #ffffff;
-    cursor: pointer;
-    font-weight: bold;
-}
 
 .toolbar{
     --background: #0B253E;
@@ -82,12 +77,8 @@
     font-weight: 400;
   }
 
-.bkgrnd{
-    --background: #242424;
-}
 
 .description {
-    color: rgb(255, 255, 255);
     text-align: center;
     justify-content: center;
     margin-top: 30px;
@@ -102,26 +93,6 @@
     text-align: center;
     margin-top: 2px;
     margin-bottom: 2px;
-}
-
-/*.inputR{
-    --background: transparent;
-    --color: #0B253E;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 5px;
-    width: 85%;
-    border-bottom: 1px solid #012b52;
-}*/
-
-.inputR {
-  --background: #181818;
-  color: rgb(255, 255, 255);
-  text-shadow: 1px 1px 0 black, 
-               -1px -1px 0 black, 
-               1px -1px 0 black, 
-               -1px 1px 0 black;
-  border-radius: 5px;
 }
 
 
@@ -181,6 +152,7 @@
 
 .cerrar-sesion-alerta .alert-button:first-child {
   margin-left: auto; /* Mueve el botón "No" hacia el extremo izquierdo */
+  color: blue;
 }
 
 .cerrar-sesion-alerta .alert-button:last-child {

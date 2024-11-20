@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding bkgrnd">
+<ion-content [fullscreen]="true" class="ion-padding">
   <!-- Logo DuocUC -->
    <div class="logo">
     <img class="logo-title" src="../../../assets/img/Logo_DuocUC.svg.png" alt="Logo" style="height: 50px;">
@@ -38,25 +38,23 @@
       <div class="text-container ion-text-center">
         <small class="registerQ">¿Tu sede está incorrecta?</small>
       </div>
-      <div class="text-container ion-text-center">
-        <small class=signup-button (click)="irActualizarSede()">Actualízala acá</small>
+      <div class="ion-text-center">
+        <small class="btnActualizarSede" (click)="irActualizarSede()">Actualízala acá</small>
       </div>
-
-    <ion-alert
+  <!-- Alerta cambio sede -->  
+  <ion-alert
     [isOpen]="isAlertOpen"
     [header]="v_mensaje"
     [buttons]="alertButtons"
     cssClass = "custom-alert-message"
   ></ion-alert>
-
+  <!-- Alerta Cierre sesión -->
   <ion-alert
     trigger="present-alert"
     header="¿Está seguro que desea cerrar su sesión?"
     [buttons]="confirmButtons"
     cssClass = "cerrar-sesion-alerta"
   ></ion-alert>
-
 </ion-content>
-
 <!-- Tab bar/barra de navegacion -->
 <app-nav-bar></app-nav-bar>
