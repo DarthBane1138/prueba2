@@ -84,6 +84,7 @@ export class AsignaturasPage implements OnInit {
         };
       });
       asistencia.imagen = this.asignaturasImagenes[asistencia.curso_sigla] || "../../../assets/img/logo"; //imagen por asignatura
+      asistencia.mostrarMas = false; //
       this.asistencias.push(asistencia);
     }
     this.porcentajeAsistencia = this.asistencias[0]?.porcentajeAsistencia || 0;
@@ -145,11 +146,7 @@ export class AsignaturasPage implements OnInit {
     await alert.present();
   }
 
-  //Botones de despliegue para registro de clases
-  verMas() {
-    this.mostrarTodo = true;
-  }
-  verMenos() {
-    this.mostrarTodo = false;
+  toggle(asistencia: any): void {
+    asistencia.mostrarMas = !asistencia.mostrarMas;
   }
 }
