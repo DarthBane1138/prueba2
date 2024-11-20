@@ -20,6 +20,6 @@ export class BienvenidaPage implements OnInit {
               this.router.navigate(['principal'], { replaceUrl: true})
             }
           })
-    }, 2000);
+    }, 4000);
   }
 }

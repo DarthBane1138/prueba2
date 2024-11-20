@@ -61,6 +61,13 @@ export class AsignaturasPage implements OnInit {
     return;
   }
 
+  asignaturasImagenes: { [key: string]: string } = {
+    "PGY4121": "../../../assets/img/PGY4121.jpg",
+    "PGY3121": "../../../assets/img/PGY3121.webp",
+    "DSY2121": "../../../assets/img/DSY2121.avif",
+    "A006121": "../../../assets/img/A006121.png",
+  };
+
   // Función para obtener asistencia desde API
   async infoAsistencia() {
     this.asistencias = [];
@@ -82,6 +89,8 @@ export class AsignaturasPage implements OnInit {
           fecha: clase.fecha,
         };
       });
+
+      asistencia.imagen = this.asignaturasImagenes[asistencia.curso_sigla] || "../../../assets/img/logo"; //imagen por asignatura
       console.log("PLF DATOS: " + JSON.stringify(datos));
       console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
       console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
