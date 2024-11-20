@@ -77,15 +77,11 @@ export class AsignaturasPage implements OnInit {
       asistencia.ausente = json[0][x].ausente;
       asistencia.porcentajeAsistencia = (asistencia.presente/(asistencia.presente+asistencia.ausente))*100
       const datos = await this.db.obtenerAsistencia(this.correo, asistencia.curso_sigla);
-
       asistencia.fechas = datos.map((clase: any) => {
         return {
           fecha: clase.fecha,
         };
       });
-
-      this.asistencias.push(asistencia);
-
       console.log("PLF DATOS: " + JSON.stringify(datos));
       console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
       console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
