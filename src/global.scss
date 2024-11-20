@@ -171,4 +171,19 @@
     color: black;
 }
 
+.cerrar-sesion-alerta .alert-button-group {
+  justify-content: space-between; /* Ubica los botones en extremos opuestos */
+}
 
+.cerrar-sesion-alerta .alert-button {
+  flex: 1; /* Asegura que los botones se distribuyan adecuadamente */
+}
+
+.cerrar-sesion-alerta .alert-button:first-child {
+  margin-left: auto; /* Mueve el botón "No" hacia el extremo izquierdo */
+}
+
+.cerrar-sesion-alerta .alert-button:last-child {
+  margin-left: auto; /* Mueve el botón "Sí" hacia el extremo derecho */
+  color: red;
+}

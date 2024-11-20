@@ -12,11 +12,11 @@ import { DbService } from 'src/app/services/db.service';
 export class PrincipalPage implements OnInit {
 
   // Variables rescatadas de API
-  correo: string = 'Predeterminado';
-  nombre: string = 'Predeterminado';
-  contrasena: string = 'Predeterminado';
-  apellido: string = 'Predeterminado';
-  carrera: string = 'Predeterminado';
+  correo: string = '';
+  nombre: string = '';
+  contrasena: string = '';
+  apellido: string = '';
+  carrera: string = '';
   // Variables de sede usuario
   sedeNombre: string = '';
   sedeApi: string = 'Sede no encontrada'
@@ -32,7 +32,24 @@ export class PrincipalPage implements OnInit {
   isAlertOpen = false;
   v_mensaje: string = '';
   alertButtons = ['OK'];
-  
+  // Confirm Buttons para alerta de cierre de sesión
+  confirmButtons = [
+    {
+      text: 'No',
+      role: 'cancel',
+      handler: () => {
+        console.log("PLF alerta: Alerta Cancelada");
+      },
+    },
+    {
+      text: 'Sí',
+      role: 'confirm',
+      handler: () => {
+        console.log('PLF alerta: Alerta Confirmada');
+        this.cerrarSesion(); // Se llama a función cerrar sesión al confirmar
+      },
+    },
+  ]
 
   constructor(private router: Router, private db: DbService, private api: ApisService) { }
 
@@ -40,9 +57,6 @@ export class PrincipalPage implements OnInit {
       this.db.obtenerSesion().then(async (data) => {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        /*console.log("PLF Credenciales Obtenidas de tabla usuario:")
-        console.log("PLF Correo: " + this.correo)
-        console.log("PLF Contraseña: " + this.contrasena)*/
         await this.infoUsuario();
         await this.infoUsuarioApi();
         setTimeout(() => {
@@ -66,11 +80,6 @@ export class PrincipalPage implements OnInit {
       this.nombre = json.usuario.nombre;
       this.apellido = json.usuario.apellido;
       this.carrera = json.usuario.carrera;
-      console.log("PLF: Datos rescatados desde API: ")
-      console.log("PLF: Correo: " + json.usuario.correo)
-      console.log("PLF: Nombre: " + json.usuario.nombre)
-      console.log("PLF: Apellido: " + json.usuario.apellido)
-      console.log("PLF: Carrera: " + json.usuario.carrera)
       // Verificación de usuario en Base de Datos
       let usuarioExiste = await this.db.verificarUsuario(this.correo);
       if (usuarioExiste) {

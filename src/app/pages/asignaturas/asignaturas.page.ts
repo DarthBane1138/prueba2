@@ -13,8 +13,9 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class AsignaturasPage implements OnInit {
 
+  // Arreglo para guardar datos de asistencia desde API
   asistencias: any [] = [];
-  //variables para el qr opcion 2
+  //variables para el qr
   isSupported = false;
   barcodes: Barcode[] = []; //lista para codigos
   //variables para la api
@@ -42,25 +43,18 @@ export class AsignaturasPage implements OnInit {
   constructor(private alertController: AlertController, private db: DbService, private api: ApisService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
-
     const data = await this.db.obtenerSesion();
     this.correo = data.correo;
     this.contrasena = data.contrasena;
-
     this.infoAsistencia();
-
-    console.log("PLF: Asistencia")
-    console.log("PLF: Perfil Correo: " + this.correo)
-
-    //2)
     BarcodeScanner.isSupported().then((result) => {
       this.isSupported = result.supported;
     });
-    //1)
     BarcodeScanner.installGoogleBarcodeScannerModule; //instalacion de google barcode
     return;
   }
 
+  // Imágenes para ramos
   asignaturasImagenes: { [key: string]: string } = {
     "PGY4121": "../../../assets/img/PGY4121.jpg",
     "PGY3121": "../../../assets/img/PGY3121.webp",
@@ -89,12 +83,7 @@ export class AsignaturasPage implements OnInit {
           fecha: clase.fecha,
         };
       });
-
       asistencia.imagen = this.asignaturasImagenes[asistencia.curso_sigla] || "../../../assets/img/logo"; //imagen por asignatura
-      console.log("PLF DATOS: " + JSON.stringify(datos));
-      console.log("PLF: Curso Sigla: " + asistencia.curso_sigla)
-      console.log("PLF: Curso Nombre: " + asistencia.curso_nombre)
-      console.log("PLF: Porcentaje de Asistencia: " + asistencia.porcentajeAsistencia)
       this.asistencias.push(asistencia);
     }
     this.porcentajeAsistencia = this.asistencias[0]?.porcentajeAsistencia || 0;
@@ -113,38 +102,19 @@ export class AsignaturasPage implements OnInit {
     }
   }
 
-  //Añadidos los permisos en android>app>src>main>AndroidManifest.xml(<uses-permission android:name="android.permission.CAMERA" />)
-  //1) Funcion del SCANNER basico enseñado por el profe
-  // async escanearQR(){
-  //   let resultado = await BarcodeScanner.scan(); //a este resultado se le saca el texto para pasarlo al txt
-  //   if(resultado.barcodes.length>0){ //si se captura al menos 1 codigo
-  //     this.txt = resultado.barcodes[0].displayValue;
-  //     console.log(this.txt)
-  //   }
-  // }
-
-  //2) Funcion del SCANNER con permiso en tiempo de ejecucion
+  // Función del SCANNER con permiso en tiempo de ejecucion
   async scan(): Promise<void> {
     const granted = await this.requestPermissions();
     if (!granted) {
       this.presentAlert();
       return;
     } else {
-      // console.log("PLF: abriendo camara...")
       let resultado = await BarcodeScanner.scan();
       if (resultado.barcodes.length > 0) {
         this.texto = resultado.barcodes[0].displayValue;
         console.log("PLF, QR: " + this.texto);
-
         // Se separa el texto en base al carácter "|"
         const [codigoClase, nombreClase, fechaClase] = this.texto.split("|")
-
-        // Variables a consola
-        // console.log("PLF, QR: Código clase: " + codigoClase);
-        // console.log("PLF, QR: Nombre clase: " + nombreClase);
-        // console.log("PLF, QR: Correo clase: " + this.correo);
-        // console.log("PLF, QR: FechaClase: " + fechaClase);
-        
         let datos = this.api.marcarAsistencia(codigoClase, this.correo, fechaClase)
         let respuesta = await lastValueFrom(datos);
         let json_texto = JSON.stringify(respuesta);
@@ -158,19 +128,8 @@ export class AsignaturasPage implements OnInit {
           window.location.reload(); // Recarga completa
         }, 3000)
       }
-      // Esto se podría usar para registrar la asistencia en la base de datos local
-      // const { barcodes } = await BarcodeScanner.scan();
-      //this.barcodes.push(...barcodes);
     }
   }
-
-  // async leerQR(){
-  //   let resultado = await BarcodeScanner.scan();
-  //   if (resultado.barcodes.length > 0) {
-  //     this.texto = resultado.barcodes[0].displayValue;
-  //     console.log(this.texto);
-  //   }
-  // }
 
   async requestPermissions(): Promise<boolean> {
     const { camera } = await BarcodeScanner.requestPermissions();
@@ -186,11 +145,11 @@ export class AsignaturasPage implements OnInit {
     await alert.present();
   }
 
-    //Botones de despliegue para registro de clases
-    verMas() {
-      this.mostrarTodo = true;
-    }
-    verMenos() {
-      this.mostrarTodo = false;
-    }
+  //Botones de despliegue para registro de clases
+  verMas() {
+    this.mostrarTodo = true;
+  }
+  verMenos() {
+    this.mostrarTodo = false;
+  }
 }

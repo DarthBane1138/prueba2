@@ -26,9 +26,6 @@ export class ActualizarSedePage implements OnInit {
     this.db.obtenerSesion().then(data => {
       this.correo = data.correo;
       this.contrasena = data.contrasena;
-      /*console.log("PLF: Credenciales Obtenidas de de tabla usuario: ")
-      console.log("PLF: Correo:  " + this.correo)
-      console.log("PLF: Contraseña: " + this.contrasena)*/
     })
   }
 
@@ -39,9 +36,6 @@ export class ActualizarSedePage implements OnInit {
       if (data) {
         this.correo = data.correo;
         this.contrasena = data.contrasena;
-        /*console.log("PLF: Datos rescatados desde Base de Datos:");
-        console.log("PLF: Correo: " + this.correo);
-        console.log("PLF: Contraseña : " + this.contrasena);*/
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
       }

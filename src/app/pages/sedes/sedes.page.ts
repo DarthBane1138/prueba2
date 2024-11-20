@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { ApisService } from 'src/app/services/apis.service';
 
@@ -12,7 +11,7 @@ export class SedesPage implements OnInit {
 
   listaSedes: any [] = []
 
-  constructor(private api: ApisService, private router: Router) { }
+  constructor(private api: ApisService) { }
 
   ngOnInit() {
     this.verSedes();
@@ -32,7 +31,6 @@ export class SedesPage implements OnInit {
       sede.telefono = json[0][x].TELEFONO;
       sede.horario_atencion = json[0][x].HORARIO_ATENCION;
       sede.imagen = json[0][x].IMAGEN;
-
       this.listaSedes.push(sede);
     }
   }

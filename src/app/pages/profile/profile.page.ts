@@ -37,7 +37,6 @@ export class ProfilePage implements OnInit {
       this.contrasena = data.contrasena;
       console.log("PLF: Perfil Correo: " + this.correo)
       this.infoUsuario()
-      // this.infoUsuarioApi()
     })
   }
 
@@ -52,15 +51,6 @@ export class ProfilePage implements OnInit {
         this.apellido = data.apellido;
         this.carrera = data.carrera;
         this.sedeNombre = data.sede;
-
-        console.log("PLF: Datos rescatados desde Base de Datos:");
-        console.log("PLF: Correo: " + this.correo);
-        console.log("PLF: Contraseña : " + this.contrasena);
-        console.log("PLF: Nombre: " + this.nombre);
-        console.log("PLF: Apellido: " + this.apellido);
-        console.log("PLF: Carrera: " + this.carrera);
-        console.log("PLF: Sede: " + this.sedeNombre);
-  
         this.seleccionarSede();
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
@@ -69,29 +59,6 @@ export class ProfilePage implements OnInit {
       console.error('PLF: Error al recuperar información del usuario:', error);
     }
   }
-
-  /*async infoUsuarioApi() {
-    let datos = this.api.loginUsuario(
-      this.correo, this.contrasena
-    )
-    let respuesta = await lastValueFrom(datos);
-    let json_texto = JSON.stringify(respuesta);
-    let json = JSON.parse(json_texto);
-
-    if(json.status == "success") {
-      this.correo = json.usuario.correo;
-      this.nombre = json.usuario.nombre;
-      this.apellido = json.usuario.apellido;
-      this.carrera = json.usuario.carrera;
-      console.log("PLF: Datos rescatados desde API: ")
-      console.log("PLF: Correo: " + json.usuario.correo)
-      console.log("PLF: Nombre: " + json.usuario.nombre)
-      console.log("PLF: Apellido: " + json.usuario.apellido)
-      console.log("PLF: Carrea: " + json.usuario.carrera)
-    } else {
-      console.log("PLF No se han podido recuperar los datos desde la API")
-    }
-  }*/
 
     // Selección de Sede
   async seleccionarSede(){
@@ -107,7 +74,7 @@ export class ProfilePage implements OnInit {
       sede.telefono = json[0][x].TELEFONO;
       sede.horario_atencion = json[0][x].HORARIO_ATENCION;
       sede.imagen = json[0][x].IMAGEN;
-
+      // Bloque if para seleccionar sede de acuerdo a lo guardado en la BD
       if(sede.nombre == this.sedeNombre) {
         this.sedeApiNombre = json[0][x].NOMBRE;
         this.sedeApiDireccion = json[0][x].DIRECCION;
@@ -115,7 +82,6 @@ export class ProfilePage implements OnInit {
         this.sedeApiHorarioAtencion = json[0][x].HORARIO_ATENCION;
         this.sedeApiImagen = json[0][x].IMAGEN;
       }
-
       this.listaSedes.push(sede);
     }
     if (this.sedeApi) {

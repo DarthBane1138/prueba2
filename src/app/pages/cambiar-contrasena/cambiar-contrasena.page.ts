@@ -61,16 +61,11 @@ export class CambiarContrasenaPage implements OnInit {
     let respuesta = await lastValueFrom(datos);
     let json_texto = JSON.stringify(respuesta);
     let json = JSON.parse(json_texto);
-    /*console.log("PLF : Resultado modificación API: " + json.message)*/
 
     if(json.status == "success") {
       this.v_visible = false;
       this.isAlertOpen = true;
       this.v_mensaje = json.message;
-      /*console.log("PLF: Correo: " + this.correo)
-      console.log("PLF: Correo Antiguo: " + this.correo)
-      console.log("PLF: Contraseña: " + this.mdl_actual)
-      console.log("PLF: Carrera: " + this.mdl_carrera_nueva)*/
       await this.db.verificarUsuario(this.correo);
       this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.contrasena)
       /* console.log("Datos actualizados en la base de datos") */

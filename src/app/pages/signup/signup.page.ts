@@ -69,13 +69,6 @@ export class SignupPage implements OnInit {
     if(json.status == "success") {
       this.v_mensaje = json.message;
       this.isAlertOpen = true;
-      /*console.log("PLF: Usuario Creado")
-      console.log("PLF: Correo: " + this.mdl_correo)
-      console.log("PLF: Contraseña: " + this.mdl_contrasena)
-      console.log("PLF: Nombre: " + this.mdl_nombre)
-      console.log("PLF: Apellido: " + this.mdl_apellido)
-      console.log("PLF: Carrera: " + this.mdl_carrera)
-      console.log("PLF: Sede: " + this.mdl_sede)*/
       // Registro de Usuarios en Base de datos local
       this.db.almacenarUsuario(
         this.mdl_correo,
@@ -100,5 +93,4 @@ export class SignupPage implements OnInit {
   setOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
   }
-
 }
