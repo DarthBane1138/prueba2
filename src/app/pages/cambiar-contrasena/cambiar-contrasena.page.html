@@ -5,17 +5,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding bkgrnd">
+<ion-content [fullscreen]="true" class="ion-padding">
   <!-- Input Correo Actual -->
-    <ion-item  lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-item  lines="inset" class="ion-margin-top custom-line">
       <ion-input [(ngModel)]="mdl_correo_actual" label="Correo Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label correo-input" [readonly]="true"></ion-input>
     </ion-item>
   <!-- Input Nueva Contraseña -->
-    <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+    <ion-item lines="inset" class="ion-margin-top  custom-line">
       <ion-input [(ngModel)]="mdl_contrasena_nueva" label="Contraseña Nueva" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label" type="password"></ion-input>
     </ion-item>
   <!-- Options Escuela -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-item lines="inset" class="ion-margin-top custom-line">
     <ion-label>Escuela:</ion-label>
     <ion-select [(ngModel)]="mdl_escuela" (ionChange)="opEscuela()" placeholder="Selecciona tu escuela">
       <ion-select-option value="Administracion y Negocios">Administracion y Negocios</ion-select-option>
@@ -30,7 +30,7 @@
     </ion-select>
   </ion-item>
   <!-- Options Carrera -->
-  <ion-item lines="inset" class="ion-margin-top inputR custom-line">
+  <ion-item lines="inset" class="ion-margin-top custom-line">
     <ion-label>Carrera:</ion-label>
     <ion-select [(ngModel)]="mdl_carrera_nueva" placeholder="Selecciona tu carrera">
       <ion-select-option *ngFor="let carrera of carrerasDispo" [value]="carrera">{{ carrera }}</ion-select-option>
@@ -38,7 +38,7 @@
   </ion-item>
   <!-- Botón confirmación -->
   <ion-button (click)="actualizarUsuario()" class="btn ion-margin-top" fill="solid" expand="block">
-    <span> Confirmar Cambio Contraseña </span>
+    <span> Confirmar Cambio </span>
   </ion-button>
 
   <ion-item *ngIf="v_visible" color="danger" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>

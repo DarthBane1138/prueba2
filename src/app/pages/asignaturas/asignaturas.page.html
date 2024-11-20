@@ -5,9 +5,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding-top bkgrnd">
-  <ion-button expand="block" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
-  <ion-item *ngFor="let asistencia of asistencias" class="bkgrnd">
+<ion-content [fullscreen]="true" class="ion-padding-top centerContainer">
+  <ion-buttons>
+    <ion-button class="btnEscaner" (click)="scan()" [disabled]="!isSupported">Escanear QR</ion-button>
+  </ion-buttons>
+  <ion-item *ngFor="let asistencia of asistencias">
     <ion-card>
       <img [src]="asistencia.imagen" alt="imagen de la asignatura">
       <ion-card-header>

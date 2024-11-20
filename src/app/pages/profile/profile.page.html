@@ -5,9 +5,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding bkgrnd">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-avatar class="contenedorPerfil">
-    <img alt="Silhouette of a person's head" src="../../../assets/img/loginIcon.webp" />
+    <img alt="Silhouette of a person's head" src="../../../assets/img/Login_Icon_2a1a3edd-38c4-465a-bcee-a2ab946a7d47.webp" />
   </ion-avatar>
   <p class="bienvenida">Bienvenido/a</p>
   <ion-card class="datosPerfil">
@@ -30,17 +30,28 @@
           </ion-thumbnail>
           <ion-label>{{ correo }}</ion-label>
         </ion-item>
+        <!-- Carrera -->
         <ion-item>
           <ion-thumbnail slot="start">
             <ion-icon class="icons" name="book-outline"></ion-icon>
           </ion-thumbnail>
           <ion-label>{{ carrera }}</ion-label>
         </ion-item>
+        <!-- Sede -->
         <ion-item>
           <ion-thumbnail slot="start">
             <ion-icon class="icons" name="pin-outline"></ion-icon>
           </ion-thumbnail>
           <ion-label>Sede: {{ sedeApiNombre }}</ion-label>
+        </ion-item>
+        <!-- Preferencia de tema -->
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-icon class="icons" name="moon-outline"></ion-icon>
+          </ion-thumbnail>
+          <ion-toggle [(ngModel)]="paletteToggle" (ionChange)="toggleChange($event)" justify="space-between">
+            Modo oscuro
+          </ion-toggle>
         </ion-item>
       </ion-list>
     </ion-card-content>

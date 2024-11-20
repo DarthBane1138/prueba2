@@ -1,2 +1,42 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+//tema claro
+:root {
+    --ion-color-primary: #3880ff;
+    --ion-color-secondary: #3dc2ff;
+    --ion-color-tertiary: #5260ff;
+    --ion-color-light: #f4f5f8;
+    --ion-color-medium: #92949c;
+    --ion-color-dark: #222428;
+    --ion-color-primary-rgb: 56, 128, 255;
+    --ion-color-primary-contrast: #fff;
+    --ion-text-color: #000;
+    --ion-button-background: #1864e7;
+    --ion-button-text-color: #fff;
+    --ion-icon-color: #000;
+  }
+  
+  //tema oscuro
+  .ion-palette-dark {
+    --ion-color-primary: #1e1e1e;
+    --ion-color-secondary: #3dc2ff;
+    --ion-color-tertiary: #5260ff;
+    --ion-color-light: #222428;
+    --ion-color-medium: #92949c;
+    --ion-color-dark: #ffffff;
+    --ion-color-primary-rgb: 56, 128, 255;
+    --ion-color-primary-contrast: #fff;
+    --ion-text-color: #fff;
+    --ion-button-background: #1864e7;
+    --ion-button-text-color: #fff;
+    --ion-icon-color: #fff;
+    ion-select .alert-button {
+        --color: #3880ff;
+      }
+    
+      ion-select .alert-button-1 {
+        --color: #3880ff;
+      }
+  }
+  
