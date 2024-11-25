@@ -19,7 +19,10 @@
 	ionic g service services/db
 	ionic g module components (administrador de componentes)
 	ionic g component components/nav-bar
-7. Ejecutamos nuestro proyecto android
+7.  Gestion de los archivos estáticos para el icono de la app
+	npm install @capacitor/assets
+	npx capacitor-assets generate
+8. Ejecutamos nuestro proyecto android
 	ionic cap open android
 	ionic cap run android --livereload --external
 
@@ -35,4 +38,6 @@ En caso de clonar el proyecto desde el repositorio
 	(En mi caso no fué necesario ejecutar npx cap add android ya que al clonar se instala sólo)
 4. Instalar plugin ML KIT barcode scanning para Capacitor
 	npm install @capacitor/mlkit/barcode-scannig
+5. Instalar libreria js para la generacion de codigo de barras
+	npm install jsbarcode --save
 volver a sincronizar la app con: ionic cap sync
