@@ -11,6 +11,21 @@
     display: flex;
 }
 
+#barcode-container {
+  text-align: center;
+}
+
+svg {
+  display: block;
+  margin: 20px auto;
+}
+#barcode {
+  width: 100%;
+  height: auto;
+  max-width: 300px; /* Ajusta este tamaño según sea necesario */
+}
+
+
 .bienvenida{
     align-items: center;
     justify-content: center;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import JsBarcode from 'jsbarcode';
 import { lastValueFrom } from 'rxjs';
 import { ApisService } from 'src/app/services/apis.service';
 import { DbService } from 'src/app/services/db.service';
@@ -61,6 +62,8 @@ export class ProfilePage implements OnInit {
         this.carrera = data.carrera;
         this.sedeNombre = data.sede;
         this.seleccionarSede();
+
+        this.generarCodigoDeBarras();
       } else {
         console.log('PLF: No se encontraron datos para las credenciales proporcionadas.');
       }
@@ -68,6 +71,24 @@ export class ProfilePage implements OnInit {
       console.error('PLF: Error al recuperar información del usuario:', error);
     }
   }
+
+  generarCodigoDeBarras() {
+    let barcodeData = `${this.correo}`;
+
+    barcodeData = barcodeData.replace(/[\r\n]+/g, ' ');
+    barcodeData = barcodeData.replace(/\s+/g, ' ').trim();
+   
+    if (barcodeData.trim() !== '') {
+       
+      JsBarcode('#barcode', barcodeData, {
+        format: 'CODE128',
+        displayValue: true,
+        fontSize: 18,
+        height: 100,
+        width: 3,
+        margin: 10,
+      });
+    }}
 
     // Selección de Sede
   async seleccionarSede(){
