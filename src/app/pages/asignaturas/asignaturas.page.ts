@@ -140,7 +140,7 @@ export class AsignaturasPage implements OnInit {
   async presentAlert(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Permiso denegado',
-      message: 'Please grant camera permission to use the barcode scanner.',
+      message: 'Porfavor da permiso a la camara para scannear.',
       buttons: ['OK'],
     });
     await alert.present();
