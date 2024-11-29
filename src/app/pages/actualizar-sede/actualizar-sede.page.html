@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+  <div class="center-image-container">
+    <img src="../../../assets/img/undraw_Authentication_re_svpt.png" alt="Imagen centrada" class="center-image" />
+  </div>
   <!-- Input Contraseña Actual -->
     <ion-item  lines="inset" class="ion-margin-top inputR custom-line">
       <ion-input [(ngModel)]="mdl_contrasena_actual" label="Contraseña Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label" type="password"></ion-input>
@@ -32,8 +35,8 @@
     </ion-item>
     <!-- Botón para confirmar actualizar Sede -->
     <ion-button (click)="actualizarSede()" class="btn ion-margin-top" fill="solid" expand="block">
-      <!-- Agregar Spinner -->
-      <span>Confirmar cambio Sede</span>
+      <ion-spinner *ngIf="spinnervisible" name="circular" slot="start"></ion-spinner>
+      <span *ngIf="!spinnervisible">Confirmar cambio Sede</span>
     </ion-button>
   
   <ion-item *ngIf="v_visible" color="danger" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>

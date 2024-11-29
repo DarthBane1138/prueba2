@@ -15,9 +15,11 @@ export class CambiarContrasenaPage implements OnInit {
   contrasena: string = '';
   mdl_actual: string = '';
   mdl_contrasena_nueva: string = '';
+  mdl_contrasena_actual: string = '';
   mdl_confirmacion: string = '';
   v_visible = false;
   v_mensaje = '';
+  v_mensajeA = '';
   mdl_carrera_nueva: string = '';
   mdl_correo_actual: string = '';
   isAlertOpen = false;
@@ -53,27 +55,43 @@ export class CambiarContrasenaPage implements OnInit {
 
   // Actualización API y BD
   async actualizarUsuario() {
+    if (this.mdl_contrasena_actual === '') {
+      this.v_visible = true;
+      this.v_mensaje = 'Ingrese la contraseña actual para continuar';
+      return;
+    }
+    if (this.mdl_contrasena_actual !== this.contrasena) {
+      this.v_visible = true;
+      this.v_mensaje = 'La contraseña actual es incorrecta';
+      return;
+    }
+    if (this.mdl_contrasena_nueva == this.mdl_contrasena_actual) {
+      this.v_visible = true;
+      this.v_mensaje = 'Las contraseñas no pueden ser iguales';
+      return;
+    }
     let datos = this.api.modificacionUsuario(
       this.mdl_correo_actual,
       this.mdl_contrasena_nueva,
-      this.mdl_carrera_nueva
+      this.mdl_carrera_nueva,
     );
     let respuesta = await lastValueFrom(datos);
     let json_texto = JSON.stringify(respuesta);
     let json = JSON.parse(json_texto);
-
+    
     if(json.status == "success") {
-      this.v_visible = false;
+      this.v_visible = true;
       this.isAlertOpen = true;
-      this.v_mensaje = json.message;
+      this.v_mensajeA = json.message + ', seras redirigido al login';
       await this.db.verificarUsuario(this.correo);
-      this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.contrasena)
+      this.db.actualizarDatos(this.mdl_contrasena_nueva, this.mdl_carrera_nueva, this.correo, this.mdl_contrasena_actual)
       /* console.log("Datos actualizados en la base de datos") */
       setTimeout(() => {
         this.isAlertOpen = false;
-        this.router.navigate(['login'], { replaceUrl: true});
-      }, 3000)
-      this.cerrarSesion();
+        this.router.navigate(['login'], { replaceUrl: true });
+        this.cerrarSesion();
+      }, 4000);
+      
     } else {
       this.v_visible = true;
       this.v_mensaje = json.message;

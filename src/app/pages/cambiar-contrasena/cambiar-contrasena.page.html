@@ -10,6 +10,10 @@
     <ion-item  lines="inset" class="ion-margin-top custom-line">
       <ion-input [(ngModel)]="mdl_correo_actual" label="Correo Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label correo-input" [readonly]="true"></ion-input>
     </ion-item>
+    <!-- Input actual Contraseña -->
+    <ion-item lines="inset" class="ion-margin-top  custom-line">
+      <ion-input [(ngModel)]="mdl_contrasena_actual" label="Contraseña Actual" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label" type="password"></ion-input>
+    </ion-item>
   <!-- Input Nueva Contraseña -->
     <ion-item lines="inset" class="ion-margin-top  custom-line">
       <ion-input [(ngModel)]="mdl_contrasena_nueva" label="Contraseña Nueva" labelPlacement="floating" placeHolder="Ingresa Contraseña" class="label" type="password"></ion-input>
@@ -38,14 +42,14 @@
   </ion-item>
   <!-- Botón confirmación -->
   <ion-button (click)="actualizarUsuario()" class="btn ion-margin-top" fill="solid" expand="block">
-    <span> Confirmar Cambio </span>
+      <span>Confirmar Cambio</span>
   </ion-button>
 
   <ion-item *ngIf="v_visible" color="danger" class="ion-margin-top ion-text-center"><ion-label>{{ v_mensaje }}</ion-label></ion-item>
 
   <ion-alert
   [isOpen]="isAlertOpen"
-  [header]="v_mensaje"
+  [header]="v_mensajeA"
   [buttons]="alertButtons"
   cssClass = "custom-alert-message"
 ></ion-alert>
